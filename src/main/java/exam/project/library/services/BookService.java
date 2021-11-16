@@ -1,15 +1,17 @@
 package exam.project.library.services;
 
-import exam.project.library.models.BookDto;
+import exam.project.library.models.Book;
 
-import java.util.UUID;
+import java.util.List;
 
 public interface BookService {
-    BookDto getBookById(UUID bookId);
+    List<Book> getAllBook();
 
-    BookDto saveNewBook(BookDto bookDto);
+    Book getBookById(Long bookId);
 
-    void updateBook(UUID bookId, BookDto bookDto);
+    int saveNewBook(Book bookDto);
 
-    void deleteBook(UUID bookId);
+    int updateBook(Long bookId, Book bookDto);
+
+    void deleteBook(Long bookId);
 }

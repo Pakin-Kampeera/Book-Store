@@ -1,15 +1,15 @@
 package exam.project.library.services;
 
-import exam.project.library.models.MemberDto;
+import exam.project.library.models.Member;
 
 import java.util.UUID;
 
 public interface MemberService {
-    MemberDto getMemberById(UUID memberId);
+    Member getMemberById(UUID memberId);
 
-    MemberDto saveNewMember(MemberDto memberDto);
+    Member saveNewMember(Member memberDto);
 
-    void updateMember(UUID memberId, MemberDto memberDto);
+    void updateMember(UUID memberId, Member memberDto);
 
     void deleteMember(UUID memberId);
 }

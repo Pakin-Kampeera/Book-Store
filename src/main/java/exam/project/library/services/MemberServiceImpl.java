@@ -1,24 +1,32 @@
 package exam.project.library.services;
 
-import exam.project.library.models.MemberDto;
+import exam.project.library.models.Member;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public MemberServiceImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
-    public MemberDto getMemberById(UUID memberId) {
+    public Member getMemberById(UUID memberId) {
         return null;
     }
 
     @Override
-    public MemberDto saveNewMember(MemberDto memberDto) {
+    public Member saveNewMember(Member memberDto) {
         return null;
     }
 
     @Override
-    public void updateMember(UUID memberId, MemberDto memberDto) {
+    public void updateMember(UUID memberId, Member memberDto) {
 
     }
 

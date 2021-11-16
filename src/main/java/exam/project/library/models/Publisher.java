@@ -5,16 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class MemberDto {
+public class Publisher {
+
     private Long id;
     private String firstName;
     private String lastName;
     private String address;
-    private LocalDate memberDate;
 }
