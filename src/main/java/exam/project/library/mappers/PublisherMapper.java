@@ -16,6 +16,8 @@ public class PublisherMapper implements RowMapper<Publisher> {
                 .firstName(rs.getString("firstName"))
                 .lastName(rs.getString("lastName"))
                 .address(rs.getString("address"))
+                .telephone(rs.getString("telephone"))
+                .email(rs.getString("email"))
                 .build();
         return publisher;
     }

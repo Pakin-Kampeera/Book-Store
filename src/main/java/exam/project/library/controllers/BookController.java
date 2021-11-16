@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequestMapping("api/v1/book")
 @RestController
 public class BookController {
@@ -27,7 +29,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity addBook(@RequestBody Book book) {
+    public ResponseEntity addBook(@Valid @RequestBody Book book) {
         bookService.saveNewBook(book);
 
         HttpHeaders headers = new HttpHeaders();
@@ -38,7 +40,7 @@ public class BookController {
 
     @PutMapping("/{bookId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateBook(@PathVariable("bookId") Long bookId, @RequestBody Book book) {
+    public void updateBook(@PathVariable("bookId") Long bookId, @Valid @RequestBody Book book) {
         bookService.updateBook(bookId, book);
     }
 

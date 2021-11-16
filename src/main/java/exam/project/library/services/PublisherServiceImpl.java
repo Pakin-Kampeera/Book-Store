@@ -26,7 +26,7 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public Publisher saveNewPublisher(Long publisherDto) {
+    public Publisher saveNewPublisher(Publisher publisher) {
         return null;
     }
 

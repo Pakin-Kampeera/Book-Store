@@ -15,4 +15,6 @@ public class Publisher {
     private String firstName;
     private String lastName;
     private String address;
+    private String telephone;
+    private String email;
 }
