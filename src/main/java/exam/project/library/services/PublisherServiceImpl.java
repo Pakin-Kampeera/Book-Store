@@ -4,7 +4,7 @@ import exam.project.library.models.Publisher;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.List;
 
 @Service
 public class PublisherServiceImpl implements PublisherService {
@@ -16,22 +16,27 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
-    public Publisher getPublisherById(UUID publisherId) {
+    public List<Publisher> getAllPublisher() {
         return null;
     }
 
     @Override
-    public Publisher saveNewPublisher(Publisher publisherDto) {
+    public Publisher getPublisherById(Long publisherId) {
         return null;
     }
 
     @Override
-    public void updatePublisher(UUID publisherId, Publisher publisherDto) {
+    public Publisher saveNewPublisher(Long publisherDto) {
+        return null;
+    }
+
+    @Override
+    public void updatePublisher(Long publisherId, Publisher publisherDto) {
 
     }
 
     @Override
-    public void deletePublisher(UUID publisherId) {
+    public void deletePublisher(Long publisherId) {
 
     }
 }

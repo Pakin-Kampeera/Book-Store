@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,4 +17,8 @@ public class Member {
     private String firstName;
     private String lastName;
     private String address;
+    private String telephone;
+    private String email;
+    private LocalDate borrowDate;
+    private LocalDate returnDate;
 }

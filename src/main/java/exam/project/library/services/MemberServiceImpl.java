@@ -4,7 +4,7 @@ import exam.project.library.models.Member;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -15,8 +15,14 @@ public class MemberServiceImpl implements MemberService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
     @Override
-    public Member getMemberById(UUID memberId) {
+    public List<Member> getAllMember() {
+        return null;
+    }
+
+    @Override
+    public Member getMemberById(Long memberId) {
         return null;
     }
 
@@ -26,12 +32,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMember(UUID memberId, Member memberDto) {
+    public void updateMember(Long memberId, Member memberDto) {
 
     }
 
     @Override
-    public void deleteMember(UUID memberId) {
+    public void deleteMember(Long memberId) {
 
     }
 }

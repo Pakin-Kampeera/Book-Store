@@ -2,14 +2,16 @@ package exam.project.library.services;
 
 import exam.project.library.models.Publisher;
 
-import java.util.UUID;
+import java.util.List;
 
 public interface PublisherService {
-    Publisher getPublisherById(UUID publisherId);
+    List<Publisher> getAllPublisher();
 
-    Publisher saveNewPublisher(Publisher publisherDto);
+    Publisher getPublisherById(Long publisherId);
 
-    void updatePublisher(UUID publisherId, Publisher publisherDto);
+    Publisher saveNewPublisher(Long publisherDto);
 
-    void deletePublisher(UUID publisherId);
+    void updatePublisher(Long publisherId, Publisher publisherDto);
+
+    void deletePublisher(Long publisherId);
 }

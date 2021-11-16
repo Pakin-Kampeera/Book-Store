@@ -15,6 +15,8 @@ public class MemberMapper implements RowMapper<Member> {
                 .firstName(rs.getString("firstName"))
                 .lastName(rs.getString("lastName"))
                 .address(rs.getString("address"))
+                .telephone(rs.getString("telephone"))
+                .email(rs.getString("email"))
                 .build();
         return member;
     }
