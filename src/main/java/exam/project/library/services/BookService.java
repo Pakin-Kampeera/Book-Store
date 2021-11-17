@@ -9,9 +9,9 @@ public interface BookService {
 
     Book getBookById(Long bookId);
 
-    int saveNewBook(Book bookDto);
+    int saveNewBook(Book book);
 
-    int updateBook(Long bookId, Book bookDto);
+    int updateBook(Long bookId, Book book);
 
     void deleteBook(Long bookId);
 }

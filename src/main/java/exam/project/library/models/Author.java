@@ -6,13 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Book {
+public class Author {
     private Long id;
-    private String title;
-    private String price;
-    private Author author;
-    private Publisher publisher;
+    private String firstName;
+    private String lastName;
+    private Book book;
 }

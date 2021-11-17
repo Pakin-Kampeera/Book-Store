@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 public class Publisher {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String address;
-    private String telephone;
-    private String email;
+    private String city;
+    private String state;
+    private String zip;
 }

@@ -9,9 +9,9 @@ public interface MemberService {
 
     Member getMemberById(Long memberId);
 
-    Member saveNewMember(Member memberDto);
+    Member saveNewMember(Member member);
 
-    void updateMember(Long memberId, Member memberDto);
+    void updateMember(Long memberId, Member member);
 
     void deleteMember(Long memberId);
 }

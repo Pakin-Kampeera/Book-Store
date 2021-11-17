@@ -11,7 +11,7 @@ public interface PublisherService {
 
     Publisher saveNewPublisher(Publisher publisher);
 
-    void updatePublisher(Long publisherId, Publisher publisherDto);
+    void updatePublisher(Long publisherId, Publisher publisher);
 
     void deletePublisher(Long publisherId);
 }
