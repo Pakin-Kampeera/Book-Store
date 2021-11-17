@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RequestMapping("/v1/api/author")
+@RequestMapping("/api/v1/author")
 @RestController
 public class AuthorController {
     private final AuthorService authorService;
