@@ -26,9 +26,8 @@ public class BookMapper implements RowMapper<Book> {
         Publisher publisher = new Publisher();
         publisher.setId(rs.getLong("id"));
         publisher.setName(rs.getString("name"));
-        publisher.setAddress(rs.getString("address"));
+        publisher.setStreet(rs.getString("street"));
         publisher.setCity(rs.getString("city"));
-        publisher.setState(rs.getString("state"));
         publisher.setZip(rs.getString("zip"));
 
         book.setPublisher(publisher);

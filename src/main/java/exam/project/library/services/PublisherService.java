@@ -9,7 +9,7 @@ public interface PublisherService {
 
     Publisher getPublisherById(Long publisherId);
 
-    Publisher saveNewPublisher(Publisher publisher);
+    int saveNewPublisher(Publisher publisher);
 
     void updatePublisher(Long publisherId, Publisher publisher);
 

@@ -11,7 +11,7 @@ public interface AuthorService {
 
     int saveNewAuthor(Author author);
 
-    int updateAuthor(Long authorId, Author author);
+    void updateAuthor(Long authorId, Author author);
 
     void deleteAuthor(Long authorId);
 }

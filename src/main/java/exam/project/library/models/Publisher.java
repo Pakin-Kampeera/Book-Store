@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 public class Publisher {
     private Long id;
     private String name;
-    private String address;
+    private String street;
     private String city;
-    private String state;
     private String zip;
 }

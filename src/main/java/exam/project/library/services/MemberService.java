@@ -9,7 +9,7 @@ public interface MemberService {
 
     Member getMemberById(Long memberId);
 
-    Member saveNewMember(Member member);
+    int saveNewMember(Member member);
 
     void updateMember(Long memberId, Member member);
 
