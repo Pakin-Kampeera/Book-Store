@@ -11,12 +11,13 @@ public class AuthorMapper implements RowMapper<Author> {
     @Override
     public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
         Author author = new Author();
-        author.setId(rs.getLong("id"));
+        author.setId(rs.getLong("authorid"));
         author.setFirstName(rs.getString("firstname"));
         author.setLastName(rs.getString("lastname"));
 
+        System.out.println(rowNum);
         Book book = new Book();
-        book.setId(rs.getLong("id"));
+        book.setId(rs.getLong("bookid"));
         book.setTitle(rs.getString("title"));
         book.setPrice(rs.getString("price"));
 

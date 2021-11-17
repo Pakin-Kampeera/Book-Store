@@ -10,7 +10,7 @@ public class PublisherMapper implements RowMapper<Publisher> {
     @Override
     public Publisher mapRow(ResultSet rs, int rowNum) throws SQLException {
         Publisher publisher = new Publisher();
-        publisher.setId(rs.getLong("id"));
+        publisher.setId(rs.getLong("publisherid"));
         publisher.setName(rs.getString("name"));
         publisher.setStreet(rs.getString("street"));
         publisher.setCity(rs.getString("city"));
