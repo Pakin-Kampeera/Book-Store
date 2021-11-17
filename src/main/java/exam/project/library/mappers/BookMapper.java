@@ -1,22 +1,38 @@
 package exam.project.library.mappers;
 
+import exam.project.library.models.Author;
 import exam.project.library.models.Book;
+import exam.project.library.models.Publisher;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BookMapper implements RowMapper<Book> {
-
     @Override
     public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Book book = Book.builder()
-                .id(rs.getLong("id"))
-                .title(rs.getString("title"))
-                .author(rs.getString("author"))
-                .price(rs.getString("price"))
-                .available(rs.getBoolean("available"))
-                .build();
+        Book book = new Book();
+        book.setId(rs.getLong("id"));
+        book.setTitle(rs.getString("title"));
+        book.setPrice(rs.getString("price"));
+
+        Author author = new Author();
+        author.setId(rs.getLong("id"));
+        author.setFirstName(rs.getString("firstName"));
+        author.setLastName(rs.getString("lastName"));
+
+        book.setAuthor(author);
+
+        Publisher publisher = new Publisher();
+        publisher.setId(rs.getLong("id"));
+        publisher.setName(rs.getString("name"));
+        publisher.setAddress(rs.getString("address"));
+        publisher.setCity(rs.getString("city"));
+        publisher.setState(rs.getString("state"));
+        publisher.setZip(rs.getString("zip"));
+
+        book.setPublisher(publisher);
+
         return book;
     }
 }

@@ -32,22 +32,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public int saveNewBook(Book book) {
-        String sql = "insert into Books (title, author, price, available) values (?, ?, ?, ?)";
+        String sql = "insert into Books (title, author, price) values (?, ?, ?)";
         return jdbcTemplate.update(sql,
                 book.getTitle(),
                 book.getAuthor(),
-                book.getPrice(),
-                book.isAvailable());
+                book.getPrice());
     }
 
     @Override
     public int updateBook(Long bookId, Book book) {
-        String sql = "update Books set title = ?, author = ?, price = ?, available = ? where id = ?";
+        String sql = "update Books set title = ?, author = ?, price = ? where id = ?";
         return jdbcTemplate.update(sql,
                 book.getTitle(),
                 book.getAuthor(),
                 book.getPrice(),
-                book.isAvailable(),
                 bookId);
     }
 
