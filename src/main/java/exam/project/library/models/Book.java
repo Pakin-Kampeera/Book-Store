@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,6 +13,6 @@ public class Book {
     private Long id;
     private String title;
     private String price;
-    private Author author;
-    private Publisher publisher;
+//    private Set<Author> author;
+//    private Set<Publisher> publisher;
 }

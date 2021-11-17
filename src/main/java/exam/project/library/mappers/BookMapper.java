@@ -21,7 +21,7 @@ public class BookMapper implements RowMapper<Book> {
         author.setFirstName(rs.getString("firstName"));
         author.setLastName(rs.getString("lastName"));
 
-        book.setAuthor(author);
+//        book.setAuthor(author);
 
         Publisher publisher = new Publisher();
         publisher.setId(rs.getLong("publisherid"));
@@ -30,7 +30,7 @@ public class BookMapper implements RowMapper<Book> {
         publisher.setCity(rs.getString("city"));
         publisher.setZip(rs.getString("zip"));
 
-        book.setPublisher(publisher);
+//        book.setPublisher(publisher);
 
         return book;
     }

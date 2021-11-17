@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,5 +17,5 @@ public class Member {
     private String telephone;
     private LocalDate borrowDate;
     private LocalDate returnDate;
-    private Book book;
+    private Set<Book> book;
 }

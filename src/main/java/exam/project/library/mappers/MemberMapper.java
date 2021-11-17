@@ -23,7 +23,7 @@ public class MemberMapper implements RowMapper<Member> {
         book.setTitle(rs.getString("title"));
         book.setPrice(rs.getString("price"));
 
-        member.setBook(book);
+//        member.setBook(book);
 
         return member;
     }

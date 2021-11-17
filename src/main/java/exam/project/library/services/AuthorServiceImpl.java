@@ -17,18 +17,15 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAllAuthor() {
-        String sql = "select Books.*, Authors.* from authors, books, write " +
-                "where write.authorid = authors.authorid and " +
-                "write.bookid = books.bookid;";
+        String sql = "select Books.*, Authors.* from authors, books, write where write.authorid = authors.authorid and write.bookid = books.bookid";
         return jdbcTemplate.query(sql, new AuthorMapper());
     }
 
     @Override
     public Author getAuthorById(Long authorId) {
-        String sql = "select Books.*, Authors.* from Authors, Books, Write " +
-                "where Write.BookID = Books.BookId and Write.AuthorID = Authors.AuthorID " +
-                "and Write.AuthorId = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{authorId}, new AuthorMapper());
+        String sql = "select Books.*, Authors.* from Authors, Books, Write where Write.BookID = Books.BookId and Write.AuthorID = Authors.AuthorID and Write.AuthorId = ?";
+//        return  jdbcTemplate.queryForObject(sql, new Object[]{authorId}, new AuthorMapper());
+        return null;
     }
 
     @Override
