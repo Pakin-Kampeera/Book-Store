@@ -5,7 +5,6 @@ import exam.project.library.models.Member;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,37 +19,34 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> getAllMember() {
-        String sql = "select * from Members";
+        String sql = "select * from Members, Books, Borrow where Borrow.member_id = Members.member_id and Borrow.book_id = Books.book_id";
         return jdbcTemplate.query(sql, new MemberMapper());
     }
 
     @Override
-    public Member getMemberById(Long memberId) {
-        String sql = "select * from Members where id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{memberId}, new MemberMapper());
+    public List<Member> getMemberById(Long memberId) {
+        String sql = "select * from Members, Books, Borrow where Borrow.member_id = Members.member_id and Borrow.book_id = Books.book_id and Members.member_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{memberId}, new MemberMapper());
     }
 
     @Override
     public int saveNewMember(Member member) {
-        String sql = "insert into Members (firstname, lastname, telephone, borrowDate, returnDate) values (?, ?, ?, ?, ?)";
-        LocalDate currentDate = LocalDate.now();
+        String sql = "insert into Members (firstname, lastname, telephone) values (?, ?, ?)";
         return jdbcTemplate.update(sql
                 , member.getFirstName()
                 , member.getLastName()
-                , member.getTelephone()
-                , currentDate
-                , currentDate.plusDays(5));
+                , member.getTelephone());
     }
 
     @Override
     public void updateMember(Long memberId, Member member) {
-        String sql = "update Members set firstname = ?, lastname = ?, telephone = ? where id = ?";
+        String sql = "update Members set firstname = ?, lastname = ?, telephone = ? where member_id = ?";
         jdbcTemplate.update(sql, member.getFirstName(), member.getLastName(), member.getTelephone(), memberId);
     }
 
     @Override
     public void deleteMember(Long memberId) {
-        String sql = "delete from Members where id = ?";
+        String sql = "delete from Members where member_id = ?";
         jdbcTemplate.update(sql, memberId);
     }
 }

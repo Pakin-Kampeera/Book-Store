@@ -7,7 +7,7 @@ import java.util.List;
 public interface MemberService {
     List<Member> getAllMember();
 
-    Member getMemberById(Long memberId);
+    List<Member> getMemberById(Long memberId);
 
     int saveNewMember(Member member);
 

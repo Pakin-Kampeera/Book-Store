@@ -13,6 +13,6 @@ public class Book {
     private Long id;
     private String title;
     private String price;
-    private String publishers;
+    private Publisher publisher;
     private Set<Author> authors;
 }

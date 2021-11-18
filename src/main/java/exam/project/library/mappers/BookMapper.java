@@ -2,6 +2,7 @@ package exam.project.library.mappers;
 
 import exam.project.library.models.Author;
 import exam.project.library.models.Book;
+import exam.project.library.models.Publisher;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -21,7 +22,15 @@ public class BookMapper implements ResultSetExtractor<List<Book>> {
                 book.setId(bookId);
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getString("price"));
-                book.setPublishers(rs.getString("name"));
+
+                Publisher publisher = new Publisher();
+                publisher.setId(rs.getLong("publisher_id"));
+                publisher.setName(rs.getString("name"));
+                publisher.setStreet(rs.getString("street"));
+                publisher.setCity(rs.getString("city"));
+                publisher.setZip(rs.getString("zip"));
+
+                book.setPublisher(publisher);
                 book.setAuthors(new HashSet<>());
                 bookMap.put(bookId, book);
             }
