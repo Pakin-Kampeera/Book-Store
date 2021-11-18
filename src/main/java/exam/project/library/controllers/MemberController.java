@@ -41,7 +41,7 @@ public class MemberController {
 
     @PostMapping("/buy")
     @ResponseStatus(HttpStatus.CREATED)
-    public void writeBook(@Valid @RequestBody HashMap<String, String> body) {
+    public void ownBook(@Valid @RequestBody HashMap<String, String> body) {
         memberService.buyBook(Long.parseLong(body.get("memberId")), Long.parseLong(body.get("bookId")));
     }
 

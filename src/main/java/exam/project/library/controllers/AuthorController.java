@@ -20,17 +20,17 @@ public class AuthorController {
     }
 
     @GetMapping
-    public ResponseEntity<Author> getAllBooks() {
+    public ResponseEntity<Author> getAllAuthors() {
         return new ResponseEntity(authorService.getAllAuthor(), HttpStatus.OK);
     }
 
     @GetMapping("/{authorId}")
-    public ResponseEntity<Author> getBookById(@PathVariable("authorId") Long authorId) {
+    public ResponseEntity<Author> getAuthorById(@PathVariable("authorId") Long authorId) {
         return new ResponseEntity(authorService.getAuthorById(authorId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity addBook(@Valid @RequestBody Author author) {
+    public ResponseEntity addAuthor(@Valid @RequestBody Author author) {
         authorService.saveNewAuthor(author);
 
         HttpHeaders headers = new HttpHeaders();
@@ -47,13 +47,13 @@ public class AuthorController {
 
     @PutMapping("/{authorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateBook(@PathVariable("authorId") Long authorId, @Valid @RequestBody Author author) {
+    public void updateAuthor(@PathVariable("authorId") Long authorId, @Valid @RequestBody Author author) {
         authorService.updateAuthor(authorId, author);
     }
 
     @DeleteMapping("/{authorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBook(@PathVariable("authorId") Long authorId) {
+    public void deleteAuthor(@PathVariable("authorId") Long authorId) {
         authorService.deleteAuthor(authorId);
     }
 }

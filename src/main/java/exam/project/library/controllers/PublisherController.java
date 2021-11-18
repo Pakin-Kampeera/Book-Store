@@ -35,7 +35,7 @@ public class PublisherController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/v1/api/publisher");
 
-        return new ResponseEntity(headers, HttpStatus.OK);
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
     @PutMapping("/{publisherId}")
