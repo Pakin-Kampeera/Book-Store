@@ -11,6 +11,8 @@ public interface MemberService {
 
     int saveNewMember(Member member);
 
+    void buyBook(Long memberId, Long bookId);
+
     void updateMember(Long memberId, Member member);
 
     void deleteMember(Long memberId);

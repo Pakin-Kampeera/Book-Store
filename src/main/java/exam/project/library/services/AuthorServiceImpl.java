@@ -34,6 +34,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public void saveWriteBook(Long authorId, Long bookId) {
+        String sql = "insert into Write (author_id, book_id) values (?, ?)";
+        jdbcTemplate.update(sql, authorId, bookId);
+    }
+
+    @Override
     public void updateAuthor(Long authorId, Author author) {
         String sql = "update Authors set firstname = ?, lastname = ? where author_id = ?";
         jdbcTemplate.update(sql, author.getFirstName(), author.getLastName(), authorId);

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RequestMapping("api/v1/member")
 @RestController
@@ -38,6 +39,12 @@ public class MemberController {
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
+    @PostMapping("/buy")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void writeBook(@Valid @RequestBody HashMap<String, String> body) {
+        memberService.buyBook(Long.parseLong(body.get("memberId")), Long.parseLong(body.get("bookId")));
+    }
+
     @PutMapping("/{memberId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateMember(@PathVariable("memberId") Long memberId, @Valid @RequestBody Member member) {
@@ -49,4 +56,6 @@ public class MemberController {
     public void deleteMember(@PathVariable("memberId") Long memberId) {
         memberService.deleteMember(memberId);
     }
+
+
 }

@@ -1,5 +1,5 @@
 /* Drop existing tables */
-DROP TABLE IF EXISTS Members, Books, Publishers, Authors, Write, Borrow;
+DROP TABLE IF EXISTS Members, Books, Publishers, Authors, Write, Buy;
 
 /* Create tables */
 CREATE TABLE Members
@@ -26,9 +26,8 @@ CREATE TABLE Books
     book_id      int     NOT NULL GENERATED ALWAYS AS IDENTITY,
     title        varchar NOT NULL,
     price        varchar NOT NULL,
-    publisher_id int     NOT NULL,
-    CONSTRAINT books_pk PRIMARY KEY (book_id),
-    CONSTRAINT publisher_fk FOREIGN KEY (publisher_id) REFERENCES Publishers (publisher_id)
+    publisher_id int     NOT NULL REFERENCES Publishers (publisher_id),
+    CONSTRAINT books_pk PRIMARY KEY (book_id)
 );
 
 CREATE TABLE Authors
@@ -39,7 +38,7 @@ CREATE TABLE Authors
     CONSTRAINT author_pk PRIMARY KEY (author_id)
 );
 
-CREATE TABLE Borrow
+CREATE TABLE Buy
 (
     member_id int NOT NULL,
     book_id   int NOT NULL
@@ -73,7 +72,7 @@ VALUES ('Tom', 'Hank'),
        ('James', 'Cameron'),
        ('Patrick', 'Rothfuss');
 
-INSERT INTO Borrow (member_id, book_id)
+INSERT INTO Buy (member_id, book_id)
 VALUES (1, 1),
        (1, 2),
        (1, 3),

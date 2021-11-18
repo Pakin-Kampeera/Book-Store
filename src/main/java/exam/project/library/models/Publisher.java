@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,4 +17,5 @@ public class Publisher {
     private String street;
     private String city;
     private String zip;
+    private Set<Book> books;
 }

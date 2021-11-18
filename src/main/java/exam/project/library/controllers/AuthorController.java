@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RequestMapping("/api/v1/author")
 @RestController
@@ -36,6 +37,12 @@ public class AuthorController {
         headers.add("Location", "api/v1/author/");
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/write")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void writeBook(@Valid @RequestBody HashMap<String, String> body) {
+        authorService.saveWriteBook(Long.parseLong(body.get("authorId")), Long.parseLong(body.get("bookId")));
     }
 
     @PutMapping("/{authorId}")

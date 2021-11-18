@@ -11,6 +11,8 @@ public interface AuthorService {
 
     int saveNewAuthor(Author author);
 
+    void saveWriteBook(Long authorId, Long bookId);
+
     void updateAuthor(Long authorId, Author author);
 
     void deleteAuthor(Long authorId);

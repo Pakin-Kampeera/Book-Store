@@ -44,7 +44,7 @@ public class PublisherController {
         publisherService.updatePublisher(publisherId, publisher);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{publisherId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePublisher(@PathVariable("publisherId") Long publisherId) {
         publisherService.deletePublisher(publisherId);

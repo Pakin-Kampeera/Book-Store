@@ -7,7 +7,7 @@ import java.util.List;
 public interface PublisherService {
     List<Publisher> getAllPublisher();
 
-    Publisher getPublisherById(Long publisherId);
+    List<Publisher> getPublisherById(Long publisherId);
 
     int saveNewPublisher(Publisher publisher);
 
