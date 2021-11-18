@@ -2,36 +2,39 @@ package exam.project.library.mappers;
 
 import exam.project.library.models.Author;
 import exam.project.library.models.Book;
-import exam.project.library.models.Publisher;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
-public class BookMapper implements RowMapper<Book> {
+public class BookMapper implements ResultSetExtractor<List<Book>> {
+
     @Override
-    public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Book book = new Book();
-        book.setId(rs.getLong("id"));
-        book.setTitle(rs.getString("title"));
-        book.setPrice(rs.getString("price"));
+    public List<Book> extractData(ResultSet rs) throws SQLException, DataAccessException {
+        Map<Long, Book> bookMap = new HashMap<>();
+        while (rs.next()) {
+            Long bookId = rs.getLong("book_id");
+            if (bookMap.get(bookId) == null) {
+                Book book = new Book();
+                book.setId(bookId);
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getString("price"));
+                book.setPublishers(rs.getString("name"));
+                book.setAuthors(new HashSet<>());
+                bookMap.put(bookId, book);
+            }
 
-        Author author = new Author();
-        author.setId(rs.getLong("id"));
-        author.setFirstName(rs.getString("firstName"));
-        author.setLastName(rs.getString("lastName"));
-
-//        book.setAuthor(author);
-
-        Publisher publisher = new Publisher();
-        publisher.setId(rs.getLong("publisherid"));
-        publisher.setName(rs.getString("name"));
-        publisher.setStreet(rs.getString("street"));
-        publisher.setCity(rs.getString("city"));
-        publisher.setZip(rs.getString("zip"));
-
-//        book.setPublisher(publisher);
-
-        return book;
+            Book book = bookMap.get(bookId);
+            Set<Author> authors = book.getAuthors();
+            Author author = new Author();
+            author.setId(rs.getLong("author_id"));
+            author.setFirstName(rs.getString("firstname"));
+            author.setLastName(rs.getString("lastname"));
+            authors.add(author);
+            book.setAuthors(authors);
+        }
+        return new ArrayList<>(bookMap.values());
     }
 }

@@ -17,15 +17,14 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAllAuthor() {
-        String sql = "select Books.*, Authors.* from authors, books, write where write.authorid = authors.authorid and write.bookid = books.bookid";
+        String sql = "select Books.*, Authors.* from Authors, Books, Write where Write.author_id = Authors.author_id and Write.book_id = Books.book_id";
         return jdbcTemplate.query(sql, new AuthorMapper());
     }
 
     @Override
-    public Author getAuthorById(Long authorId) {
-        String sql = "select Books.*, Authors.* from Authors, Books, Write where Write.BookID = Books.BookId and Write.AuthorID = Authors.AuthorID and Write.AuthorId = ?";
-//        return  jdbcTemplate.queryForObject(sql, new Object[]{authorId}, new AuthorMapper());
-        return null;
+    public List<Author> getAuthorById(Long authorId) {
+        String sql = "select Books.*, Authors.* from Authors, Books, Write where Write.book_id = Books.book_id and Write.author_id = Authors.author_id and Write.author_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{authorId}, new AuthorMapper());
     }
 
     @Override
@@ -36,13 +35,13 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void updateAuthor(Long authorId, Author author) {
-        String sql = "update Authors set firstname = ?, lastname = ? where authorid = ?";
+        String sql = "update Authors set firstname = ?, lastname = ? where author_id = ?";
         jdbcTemplate.update(sql, author.getFirstName(), author.getLastName(), authorId);
     }
 
     @Override
     public void deleteAuthor(Long authorId) {
-        String sql = "delete from Authors where authorid = ?";
+        String sql = "delete from Authors where author_id = ?";
         jdbcTemplate.update(sql, authorId);
     }
 }

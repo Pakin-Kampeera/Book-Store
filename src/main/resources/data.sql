@@ -4,78 +4,90 @@ DROP TABLE IF EXISTS Members, Books, Publishers, Authors, Write, Borrow;
 /* Create tables */
 CREATE TABLE Members
 (
-    MemberID   int     NOT NULL GENERATED ALWAYS AS IDENTITY,
-    FirstName  varchar NOT NULL,
-    LastName   varchar NOT NULL,
-    Telephone  varchar NOT NULL,
-    BorrowDate date    NOT NULL,
-    ReturnDate date    NOT NULL,
-    CONSTRAINT member_pk PRIMARY KEY (MemberID)
-);
-
-CREATE TABLE Books
-(
-    BookID int     NOT NULL GENERATED ALWAYS AS IDENTITY,
-    Title  varchar NOT NULL,
-    Price  varchar NOT NULL,
-    CONSTRAINT books_pk PRIMARY KEY (BookID)
+    member_id int     NOT NULL GENERATED ALWAYS AS IDENTITY,
+    firstname varchar NOT NULL,
+    lastname  varchar NOT NULL,
+    telephone varchar NOT NULL,
+    CONSTRAINT member_pk PRIMARY KEY (member_id)
 );
 
 CREATE TABLE Publishers
 (
-    PublisherID int     NOT NULL GENERATED ALWAYS AS IDENTITY,
-    Name        varchar NOT NULL,
-    Street      varchar NOT NULL,
-    City        varchar NOT NULL,
-    Zip         varchar NOT NULL,
-    CONSTRAINT publisher_pk PRIMARY KEY (PublisherID)
+    publisher_id int     NOT NULL GENERATED ALWAYS AS IDENTITY,
+    name         varchar NOT NULL,
+    street       varchar NOT NULL,
+    city         varchar NOT NULL,
+    zip          varchar NOT NULL,
+    CONSTRAINT publisher_pk PRIMARY KEY (publisher_id)
+);
+
+CREATE TABLE Books
+(
+    book_id      int     NOT NULL GENERATED ALWAYS AS IDENTITY,
+    title        varchar NOT NULL,
+    price        varchar NOT NULL,
+    publisher_id int     NOT NULL,
+    CONSTRAINT books_pk PRIMARY KEY (book_id),
+    CONSTRAINT publisher_fk FOREIGN KEY (publisher_id) REFERENCES Publishers (publisher_id)
 );
 
 CREATE TABLE Authors
 (
-    AuthorID  int     NOT NULL GENERATED ALWAYS AS IDENTITY,
-    FirstName varchar NOT NULL,
-    LastName  varchar NOT NULL,
-    CONSTRAINT author_pk PRIMARY KEY (AuthorID)
+    author_id int     NOT NULL GENERATED ALWAYS AS IDENTITY,
+    firstname varchar NOT NULL,
+    lastname  varchar NOT NULL,
+    CONSTRAINT author_pk PRIMARY KEY (author_id)
 );
 
 CREATE TABLE Borrow
 (
-    MemberID int NOT NULL,
-    BookID   int NOT NULL
+    member_id int NOT NULL,
+    book_id   int NOT NULL
 );
 
 CREATE TABLE Write
 (
-    BookID   int NOT NULL,
-    AuthorID int NOT NULL
+    book_id   int NOT NULL,
+    author_id int NOT NULL
 );
 
 /* Insert values */
-INSERT INTO Members (firstname, lastname, telephone, borrowDate, returnDate)
-VALUES ('Steve', 'Jobs', '12345678', '2021-10-13', '2021-10-18'),
-       ('Nocolus', 'Kate', '93746638', '2021-10-17', '2021-10-22');
-
-INSERT INTO Books (title, price)
-VALUES ('The jungle book', '30.00'),
-       ('The martian', '40.00');
+INSERT INTO Members (firstname, lastname, telephone)
+VALUES ('Steve', 'Jobs', '12345678'),
+       ('Nocolus', 'Kate', '93746638'),
+       ('Jason', 'Hammer', '63845356');
 
 INSERT INTO Publishers (name, street, city, zip)
 values ('Wall Street', '15 Ings Lane', 'DAVENTRY', 'NN11 2JW'),
        ('London House', '27 St Denys Road', 'PREES HIGHER HEATH', 'SY13 5DX');
 
+INSERT INTO Books (title, price, publisher_id)
+VALUES ('The jungle book', '30.00', 1),
+       ('The martian', '40.00', 2),
+       ('Harry Potter', '45.00', 1),
+       ('King Kong', '30.00', 2);
+
 INSERT INTO Authors (firstname, lastname)
 VALUES ('Tom', 'Hank'),
        ('Jenifer', 'Paul'),
-       ('James', 'Cameron');
+       ('James', 'Cameron'),
+       ('Patrick', 'Rothfuss');
 
-INSERT INTO Borrow (MemberID, BookID)
+INSERT INTO Borrow (member_id, book_id)
 VALUES (1, 1),
        (1, 2),
-       (2, 1);
+       (1, 3),
+       (2, 1),
+       (2, 3),
+       (2, 4);
 
-INSERT INTO Write (BookID, AuthorID)
+INSERT INTO Write (book_id, author_id)
 values (1, 1),
        (1, 3),
        (2, 1),
-       (2, 2);
+       (2, 2),
+       (3, 2),
+       (3, 4),
+       (4, 1),
+       (4, 2),
+       (4, 4);

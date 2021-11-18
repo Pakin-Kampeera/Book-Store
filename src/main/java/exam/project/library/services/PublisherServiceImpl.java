@@ -24,7 +24,7 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public Publisher getPublisherById(Long publisherId) {
-        String sql = "select * from Publishers where id = ?";
+        String sql = "select * from Publishers where publisher_id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{publisherId}, new PublisherMapper());
     }
 
@@ -40,17 +40,18 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public void updatePublisher(Long publisherId, Publisher publisher) {
-        String sql = "update Publishers set name = ?, street = ?, city = ?, zip = ? where id = ?";
+        String sql = "update Publishers set name = ?, street = ?, city = ?, zip = ? where publisher_id = ?";
         jdbcTemplate.update(sql
                 , publisher.getName()
                 , publisher.getStreet()
                 , publisher.getCity()
-                , publisher.getZip());
+                , publisher.getZip()
+                , publisherId);
     }
 
     @Override
     public void deletePublisher(Long publisherId) {
-        String sql = "delete from Publishers where id = ?";
+        String sql = "delete from Publishers where publisher_id = ?";
         jdbcTemplate.update(sql, publisherId);
     }
 }

@@ -17,5 +17,5 @@ public class Member {
     private String telephone;
     private LocalDate borrowDate;
     private LocalDate returnDate;
-    private Set<Book> book;
+    private Set<Book> books;
 }

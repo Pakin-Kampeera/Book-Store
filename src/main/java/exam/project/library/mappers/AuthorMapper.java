@@ -14,7 +14,7 @@ public class AuthorMapper implements ResultSetExtractor<List<Author>> {
     public List<Author> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<Long, Author> authorMap = new HashMap<>();
         while (rs.next()) {
-            Long authorId = rs.getLong("authorid");
+            Long authorId = rs.getLong("author_id");
             if (authorMap.get(authorId) == null) {
                 Author author = new Author();
                 author.setId(authorId);
@@ -27,7 +27,7 @@ public class AuthorMapper implements ResultSetExtractor<List<Author>> {
             Author author = authorMap.get(authorId);
             Set<Book> books = author.getBooks();
             Book book = new Book();
-            book.setId(rs.getLong("bookid"));
+            book.setId(rs.getLong("book_id"));
             book.setTitle(rs.getString("title"));
             book.setPrice(rs.getString("price"));
             books.add(book);
