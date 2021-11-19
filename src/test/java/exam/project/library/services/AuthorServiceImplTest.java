@@ -2,6 +2,7 @@ package exam.project.library.services;
 
 import exam.project.library.models.Author;
 import exam.project.library.models.Book;
+import exam.project.library.services.implementations.AuthorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +27,6 @@ class AuthorServiceImplTest {
     @Mock
     JdbcTemplate jdbcTemplate;
 
-    @Mock
     AuthorService authorService;
 
     Author author1, author2;
@@ -36,7 +36,9 @@ class AuthorServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        Set<Book> bookSet= new HashSet<>();
+        authorService = new AuthorServiceImpl(jdbcTemplate);
+
+        Set<Book> bookSet = new HashSet<>();
         book = new Book();
         book.setId(1L);
         book.setTitle("Tester");
@@ -64,7 +66,7 @@ class AuthorServiceImplTest {
 
         List<Author> authors = authorService.getAllAuthor();
         System.out.println(authors);
-//        assertEquals(2, authors.size());
+        assertEquals(2, authors.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class));
     }
 
@@ -77,29 +79,34 @@ class AuthorServiceImplTest {
 
         List<Author> authors = authorService.getAuthorById(anyLong());
         assertEquals(1, authors.size());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyString());
     }
 
     @Test
     void saveNewAuthor() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
         assertEquals(1, authorService.saveNewAuthor(author1));
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
     }
 
     @Test
     void saveWriteBook() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
+        authorService.saveWriteBook(anyLong(),anyLong());
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
     }
 
     @Test
     void updateAuthor() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        authorService.updateAuthor(anyLong(),author1);
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     void deleteAuthor() {
         when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
+        authorService.deleteAuthor(anyLong());
         verify(jdbcTemplate, times(1)).update(anyString(), anyString());
     }
 }
