@@ -1,7 +1,8 @@
-package exam.project.library.services;
+package exam.project.library.services.implementations;
 
 import exam.project.library.mappers.PublisherMapper;
 import exam.project.library.models.Publisher;
+import exam.project.library.services.PublisherService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class PublisherServiceImpl implements PublisherService {
     @Override
     public List<Publisher> getPublisherById(Long publisherId) {
         String sql = "select Publishers.*, Books.* from publishers, books where publishers.publisher_id = books.publisher_id and Publishers.publisher_id = ?";
-        return jdbcTemplate.query(sql, new Object[]{publisherId}, new PublisherMapper());
+        return jdbcTemplate.query(sql, new PublisherMapper(), publisherId);
     }
 
     @Override

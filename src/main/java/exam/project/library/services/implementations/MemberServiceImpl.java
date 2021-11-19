@@ -1,7 +1,8 @@
-package exam.project.library.services;
+package exam.project.library.services.implementations;
 
 import exam.project.library.mappers.MemberMapper;
 import exam.project.library.models.Member;
+import exam.project.library.services.MemberService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<Member> getMemberById(Long memberId) {
         String sql = "select * from Members, Books, Buy where Buy.member_id = Members.member_id and Buy.book_id = Books.book_id and Members.member_id = ?";
-        return jdbcTemplate.query(sql, new Object[]{memberId}, new MemberMapper());
+        return jdbcTemplate.query(sql, new MemberMapper(), memberId);
     }
 
     @Override

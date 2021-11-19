@@ -1,7 +1,8 @@
-package exam.project.library.services;
+package exam.project.library.services.implementations;
 
 import exam.project.library.mappers.AuthorMapper;
 import exam.project.library.models.Author;
+import exam.project.library.services.AuthorService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> getAuthorById(Long authorId) {
         String sql = "select Books.*, Authors.* from Authors, Books, Write where Write.book_id = Books.book_id and Write.author_id = Authors.author_id and Write.author_id = ?";
-        return jdbcTemplate.query(sql, new Object[]{authorId}, new AuthorMapper());
+        return jdbcTemplate.query(sql, new AuthorMapper(), authorId);
     }
 
     @Override
