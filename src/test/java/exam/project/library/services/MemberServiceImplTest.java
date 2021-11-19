@@ -4,6 +4,7 @@ import exam.project.library.models.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class MemberServiceImplTest {
 
@@ -27,6 +28,7 @@ class MemberServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         member1 = new Member();
         member1.setId(1L);
         member1.setFirstName("Steve");
@@ -65,21 +67,25 @@ class MemberServiceImplTest {
 
     @Test
     void saveNewMember() {
-//        when(memberService.saveNewMember()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     void buyBook() {
-//        when(memberService.buyBook()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
     }
 
     @Test
     void updateMember() {
-//        when(memberService.updateMember()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     void deleteMember() {
-//        when(memberService.deleteMember()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString());
     }
 }

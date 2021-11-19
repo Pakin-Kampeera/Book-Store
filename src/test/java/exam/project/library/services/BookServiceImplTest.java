@@ -4,6 +4,7 @@ import exam.project.library.models.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class BookServiceImplTest {
 
@@ -27,6 +28,7 @@ class BookServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         book1 = new Book();
         book1.setId(1L);
         book1.setTitle("The matrix");
@@ -63,16 +65,19 @@ class BookServiceImplTest {
 
     @Test
     void saveNewBook() {
-//        when(bookService.saveNewBook()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
+        assertEquals(1, bookService.saveNewBook(book1));
     }
 
     @Test
     void updateBook() {
-//        when(bookService.updateBook()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     void deleteBook() {
-//        when(bookService.deleteBook()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString());
     }
 }

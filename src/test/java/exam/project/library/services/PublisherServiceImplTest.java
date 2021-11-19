@@ -4,6 +4,7 @@ import exam.project.library.models.Publisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class PublisherServiceImplTest {
 
@@ -27,6 +28,7 @@ class PublisherServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         publisher1 = new Publisher();
         publisher1.setId(1L);
         publisher1.setName("London House");
@@ -67,16 +69,19 @@ class PublisherServiceImplTest {
 
     @Test
     void saveNewPublisher() {
-//        when(publisherService.saveNewPublisher()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        assertEquals(1, publisherService.saveNewPublisher(publisher1));
     }
 
     @Test
     void updatePublisher() {
-//        when(publisherService.updatePublisher()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     void deletePublisher() {
-//        when(publisherService.deletePublisher()).thenReturn();
+        when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString());
     }
 }
