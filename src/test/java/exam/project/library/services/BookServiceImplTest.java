@@ -12,9 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -61,14 +59,14 @@ class BookServiceImplTest {
 
     @Test
     void getBookById() {
-        Set<Book> bookSet = new HashSet<>();
+        List<Book> bookSet = new ArrayList<>();
         bookSet.add(book1);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyString())).thenReturn(bookSet);
+        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(bookSet);
 
-        List<Book> books = bookService.getBookById(anyLong());
+        List<Book> books = bookService.getBookById(1L);
         assertEquals(1, books.size());
-        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyString());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
@@ -76,20 +74,20 @@ class BookServiceImplTest {
         when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
         bookService.saveNewBook(book1);
         assertEquals(1, bookService.saveNewBook(book1));
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
+        verify(jdbcTemplate, times(2)).update(anyString(), anyString(), anyString());
     }
 
     @Test
     void updateBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).thenReturn(1);
-        bookService.updateBook(anyLong(), book1);
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        bookService.updateBook(1L, book1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deleteBook() {
-        when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
-        bookService.deleteBook(anyLong());
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        bookService.deleteBook(1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

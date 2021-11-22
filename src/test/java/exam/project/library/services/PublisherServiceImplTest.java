@@ -12,9 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -65,14 +63,14 @@ class PublisherServiceImplTest {
 
     @Test
     void getPublisherById() {
-        Set<Publisher> publisherSet = new HashSet<>();
+        List<Publisher> publisherSet = new ArrayList<>();
         publisherSet.add(publisher1);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyString())).thenReturn(publisherSet);
+        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(publisherSet);
 
-        List<Publisher> publishers = publisherService.getPublisherById(anyLong());
+        List<Publisher> publishers = publisherService.getPublisherById(1L);
         assertEquals(1, publishers.size());
-        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyString());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
@@ -84,15 +82,15 @@ class PublisherServiceImplTest {
 
     @Test
     void updatePublisher() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(1);
-        publisherService.updatePublisher(anyLong(), publisher1);
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        publisherService.updatePublisher(1L, publisher1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deletePublisher() {
-        when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
-        publisherService.deletePublisher(anyLong());
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        publisherService.deletePublisher(1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

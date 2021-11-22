@@ -65,21 +65,20 @@ class AuthorServiceImplTest {
         when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).thenReturn(authorSet);
 
         List<Author> authors = authorService.getAllAuthor();
-        System.out.println(authors);
         assertEquals(2, authors.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class));
     }
 
     @Test
     void getAuthorById() {
-        Set<Author> authorSet = new HashSet<>();
+        List<Author> authorSet = new ArrayList<>();
         authorSet.add(author1);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyString())).thenReturn(authorSet);
+        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(authorSet);
 
-        List<Author> authors = authorService.getAuthorById(anyLong());
+        List<Author> authors = authorService.getAuthorById(1L);
         assertEquals(1, authors.size());
-        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyString());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
@@ -91,22 +90,22 @@ class AuthorServiceImplTest {
 
     @Test
     void saveWriteBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
-        authorService.saveWriteBook(anyLong(),anyLong());
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyLong(), anyLong())).thenReturn(1);
+        authorService.saveWriteBook(1L, 1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong());
     }
 
     @Test
     void updateAuthor() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).thenReturn(1);
-        authorService.updateAuthor(anyLong(),author1);
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        authorService.updateAuthor(1L, author1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deleteAuthor() {
-        when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
-        authorService.deleteAuthor(anyLong());
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        authorService.deleteAuthor(1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

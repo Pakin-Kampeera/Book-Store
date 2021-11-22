@@ -12,9 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -63,14 +61,14 @@ class MemberServiceImplTest {
 
     @Test
     void getMemberById() {
-        Set<Member> memberSet = new HashSet<>();
+        List<Member> memberSet = new ArrayList<>();
         memberSet.add(member1);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyString())).thenReturn(memberSet);
+        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(memberSet);
 
-        List<Member> members = memberService.getMemberById(anyLong());
+        List<Member> members = memberService.getMemberById(1L);
         assertEquals(1, members.size());
-        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyString());
+        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
@@ -82,22 +80,22 @@ class MemberServiceImplTest {
 
     @Test
     void buyBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
-        memberService.buyBook(anyLong(), anyLong());
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyLong(), anyLong())).thenReturn(1);
+        memberService.buyBook(1L, 1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong());
     }
 
     @Test
     void updateMember() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(1);
-        memberService.updateMember(anyLong(), member1);
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        memberService.updateMember(1L, member1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deleteMember() {
-        when(jdbcTemplate.update(anyString(), anyString())).thenReturn(1);
-        memberService.deleteMember(anyLong());
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        memberService.deleteMember(1L);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }
