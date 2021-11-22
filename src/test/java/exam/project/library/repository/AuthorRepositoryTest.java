@@ -34,7 +34,7 @@ class AuthorRepositoryTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        authorRepository = new AuthorRepository(jdbcTemplate);
+        this.authorRepository = new AuthorRepository(jdbcTemplate);
 
         Set<Book> bookSet = new HashSet<>();
         book = new Book();

@@ -29,7 +29,7 @@ class BookRepositoryTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        bookRepository = new BookRepository(jdbcTemplate);
+        this.bookRepository = new BookRepository(jdbcTemplate);
 
         book1 = new Book();
         book1.setId(1L);

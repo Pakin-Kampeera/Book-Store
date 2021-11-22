@@ -30,7 +30,7 @@ class PublisherRepositoryTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        publisherRepository = new PublisherRepository(jdbcTemplate);
+        this.publisherRepository = new PublisherRepository(jdbcTemplate);
 
         publisher1 = new Publisher();
         publisher1.setId(1L);

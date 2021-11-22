@@ -30,7 +30,7 @@ class MemberRepositoryTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        memberRepository = new MemberRepository(jdbcTemplate);
+        this.memberRepository = new MemberRepository(jdbcTemplate);
 
         member1 = new Member();
         member1.setId(1L);

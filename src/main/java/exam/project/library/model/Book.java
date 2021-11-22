@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Data
@@ -13,8 +14,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
     private Long id;
+
+    @NotBlank(message = "Title is mandatory")
     private String title;
+
+    @NotBlank(message = "Price is mandatory")
     private String price;
-    private Publisher publisher;
+
     private Set<Author> authors;
 }

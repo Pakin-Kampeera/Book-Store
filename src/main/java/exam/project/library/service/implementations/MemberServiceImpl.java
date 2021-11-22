@@ -1,6 +1,5 @@
 package exam.project.library.service.implementations;
 
-import exam.project.library.mapper.MemberMapper;
 import exam.project.library.model.Member;
 import exam.project.library.repository.MemberRepository;
 import exam.project.library.service.MemberService;
@@ -19,14 +18,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> getAllMember() {
-        String sql = "select * from Members, Books, Buy where Buy.member_id = Members.member_id and Buy.book_id = Books.book_id";
-        return jdbcTemplate.query(sql, new MemberMapper());
+        return null;
     }
 
     @Override
     public List<Member> getMemberById(Long memberId) {
-        String sql = "select * from Members, Books, Buy where Buy.member_id = Members.member_id and Buy.book_id = Books.book_id and Members.member_id = ?";
-        return jdbcTemplate.query(sql, new MemberMapper(), memberId);
+        return null;
     }
 
     @Override
