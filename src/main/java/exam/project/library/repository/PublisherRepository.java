@@ -2,11 +2,14 @@ package exam.project.library.repository;
 
 import exam.project.library.mapper.PublisherMapper;
 import exam.project.library.model.Publisher;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.StringJoiner;
 
+@Slf4j
 @Repository
 public class PublisherRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -16,21 +19,38 @@ public class PublisherRepository {
     }
 
     public List<Publisher> getAllPublisher() {
-        String sql = "select Publishers.*, Books.* from publishers, books where publishers.publisher_id = books.publisher_id";
-        return jdbcTemplate.query(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("SELECT")
+                .add("Publishers.* Books.*")
+                .add("FROM")
+                .add("Publishers, Books")
+                .add("WHERE Publishers.publisher_id = books.publisher_id");
+        log.info("sql = {}", sql);
+        return jdbcTemplate.query(sql.toString()
                 , new PublisherMapper());
     }
 
     public List<Publisher> getPublisherById(Long publisherId) {
-        String sql = "select Publishers.*, Books.* from publishers, books where publishers.publisher_id = books.publisher_id and Publishers.publisher_id = ?";
-        return jdbcTemplate.query(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("SELECT")
+                .add("Publishers.* Books.*")
+                .add("FROM")
+                .add("Publishers, Books")
+                .add("WHERE Publishers.publisher_id = books.publisher_id")
+                .add("AND Publishers.publisher_id = ?");
+        log.info("sql = {}", sql);
+        return jdbcTemplate.query(sql.toString()
                 , new PublisherMapper()
                 , publisherId);
     }
 
     public int saveNewPublisher(Publisher publisher) {
-        String sql = "insert into Publishers (name, street, city, zip) values (?, ?, ?, ?)";
-        return jdbcTemplate.update(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("INSERT INTO")
+                .add("Publishers (name, street, city, zip)")
+                .add("VALUES (?, ?, ?, ?)");
+        log.info("sql = {}", sql);
+        return jdbcTemplate.update(sql.toString()
                 , publisher.getName()
                 , publisher.getStreet()
                 , publisher.getCity()
@@ -38,8 +58,13 @@ public class PublisherRepository {
     }
 
     public void updatePublisher(Long publisherId, Publisher publisher) {
-        String sql = "update Publishers set name = ?, street = ?, city = ?, zip = ? where publisher_id = ?";
-        jdbcTemplate.update(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("UPDATE")
+                .add("Publishers")
+                .add("SET name = ?, street = ?, city = ?, zip = ?")
+                .add("WHERE publisher_id = ?");
+        log.info("sql = {}", sql);
+        jdbcTemplate.update(sql.toString()
                 , publisher.getName()
                 , publisher.getStreet()
                 , publisher.getCity()
@@ -48,8 +73,12 @@ public class PublisherRepository {
     }
 
     public void deletePublisher(Long publisherId) {
-        String sql = "delete from Books where Books.publisher_id = ?";
-        jdbcTemplate.update(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("DELETE FROM")
+                .add("Books")
+                .add("WHERE Books.publisher_id = ?");
+        log.info("sql = {}", sql);
+        jdbcTemplate.update(sql.toString()
                 , publisherId);
     }
 }

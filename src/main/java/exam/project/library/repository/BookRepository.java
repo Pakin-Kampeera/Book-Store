@@ -2,11 +2,14 @@ package exam.project.library.repository;
 
 import exam.project.library.mapper.BookMapper;
 import exam.project.library.model.Book;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.StringJoiner;
 
+@Slf4j
 @Repository
 public class BookRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -16,36 +19,66 @@ public class BookRepository {
     }
 
     public List<Book> getAllBook() {
-        String sql = "select * from Books, Authors, Publishers, Write where Books.publisher_id = publishers.publisher_id and Write.author_id = Authors.author_id and Write.book_id = Books.book_id";
-        return jdbcTemplate.query(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("SELECT")
+                .add("Books.*, Authors.*, Publishers.*")
+                .add("FROM")
+                .add("Books, Authors, Publishers, Write")
+                .add("Where Books.publisher_id = Publishers.publisher_id")
+                .add("AND Write.author_id = Authors.author_id")
+                .add("AND Write.book_id = Books.book_id");
+        log.info("sql = {}", sql);
+        return jdbcTemplate.query(sql.toString()
                 , new BookMapper());
     }
 
     public List<Book> getBookById(Long bookId) {
-        String sql = "select * from Books, Authors, Publishers, Write where Books.publisher_id = publishers.publisher_id and Write.author_id = Authors.author_id and Write.book_id = Books.book_id and Books.book_id = ?";
-        return jdbcTemplate.query(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("SELECT")
+                .add("Books.*, Authors.*, Publishers.*")
+                .add("FROM")
+                .add("Books, Authors, Publishers, Write")
+                .add("Where Books.publisher_id = Publishers.publisher_id")
+                .add("AND Write.author_id = Authors.author_id")
+                .add("AND Write.book_id = Books.book_id")
+                .add("AND Books.book_id = ?");
+        log.info("sql = {}", sql);
+        return jdbcTemplate.query(sql.toString()
                 , new BookMapper()
                 , bookId);
     }
 
     public int saveNewBook(Book book) {
-        String sql = "insert into Books (title, price) values (?, ?)";
-        return jdbcTemplate.update(sql,
-                book.getTitle(),
-                book.getPrice());
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("INSERT INTO")
+                .add("Books (title, price)")
+                .add("VALUES (?, ?)");
+        log.info("sql = {}", sql);
+        return jdbcTemplate.update(sql.toString()
+                , book.getTitle()
+                , book.getPrice());
     }
 
     public void updateBook(Long bookId, Book book) {
-        String sql = "update Books set title = ?, price = ? where book_id = ?";
-        jdbcTemplate.update(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("UPDATE")
+                .add("Books")
+                .add("SET title = ?, price = ?")
+                .add("WHERE book_id = ?");
+        log.info("sql = {}", sql);
+        jdbcTemplate.update(sql.toString()
                 , book.getTitle()
                 , book.getPrice()
                 , bookId);
     }
 
     public void deleteBook(Long bookId) {
-        String sql = "delete from Books where book_id = ?";
-        jdbcTemplate.update(sql
+        final StringJoiner sql = new StringJoiner(" ");
+        sql.add("DELETE FROM")
+                .add("Books")
+                .add("WHERE book_id = ?");
+        log.info("sql = {}", sql);
+        jdbcTemplate.update(sql.toString()
                 , bookId);
     }
 }
