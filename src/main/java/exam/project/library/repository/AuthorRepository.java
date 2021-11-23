@@ -15,33 +15,33 @@ public class AuthorRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    List<Author> getAllAuthor() {
+    public List<Author> getAllAuthor() {
         String sql = "select Books.*, Authors.* from Authors, Books, Write where Write.author_id = Authors.author_id and Write.book_id = Books.book_id";
         return jdbcTemplate.query(sql
                 , new AuthorMapper());
     }
 
-    List<Author> getAuthorById(Long authorId) {
+    public List<Author> getAuthorById(Long authorId) {
         String sql = "select Books.*, Authors.* from Authors, Books, Write where Write.book_id = Books.book_id and Write.author_id = Authors.author_id and Write.author_id = ?";
         return jdbcTemplate.query(sql
                 , new AuthorMapper(), authorId);
     }
 
-    int saveNewAuthor(Author author) {
+    public int saveNewAuthor(Author author) {
         String sql = "insert into Authors (firstname, lastname) values (?, ?)";
         return jdbcTemplate.update(sql
                 , author.getFirstName()
                 , author.getLastName());
     }
 
-    void saveWriteBook(Long authorId, Long bookId) {
+    public void saveWriteBook(Long authorId, Long bookId) {
         String sql = "insert into Write (author_id, book_id) values (?, ?)";
         jdbcTemplate.update(sql
                 , authorId
                 , bookId);
     }
 
-    void updateAuthor(Long authorId, Author author) {
+    public void updateAuthor(Long authorId, Author author) {
         String sql = "update Authors set firstname = ?, lastname = ? where author_id = ?";
         jdbcTemplate.update(sql
                 , author.getFirstName()
@@ -49,7 +49,7 @@ public class AuthorRepository {
                 , authorId);
     }
 
-    void deleteAuthor(Long authorId) {
+    public void deleteAuthor(Long authorId) {
         String sql = "delete from Authors where author_id = ?";
         jdbcTemplate.update(sql
                 , authorId);

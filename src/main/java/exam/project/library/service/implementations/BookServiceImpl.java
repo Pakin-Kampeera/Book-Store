@@ -18,26 +18,26 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllBook() {
-        return null;
+        return bookRepository.getAllBook();
     }
 
     @Override
     public List<Book> getBookById(Long bookId) {
-        return null;
+        return bookRepository.getBookById(bookId);
     }
 
     @Override
     public int saveNewBook(Book book) {
-        return 1;
+        return bookRepository.saveNewBook(book);
     }
 
     @Override
     public void updateBook(Long bookId, Book book) {
-
+        bookRepository.updateBook(bookId, book);
     }
 
     @Override
     public void deleteBook(Long bookId) {
-
+        bookRepository.deleteBook(bookId);
     }
 }

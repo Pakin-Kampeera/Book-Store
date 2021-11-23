@@ -15,20 +15,20 @@ public class MemberRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    List<Member> getAllMember() {
+    public List<Member> getAllMember() {
         String sql = "select * from Members, Books, Buy where Buy.member_id = Members.member_id and Buy.book_id = Books.book_id";
         return jdbcTemplate.query(sql
                 , new MemberMapper());
     }
 
-    List<Member> getMemberById(Long memberId) {
+    public List<Member> getMemberById(Long memberId) {
         String sql = "select * from Members, Books, Buy where Buy.member_id = Members.member_id and Buy.book_id = Books.book_id and Members.member_id = ?";
         return jdbcTemplate.query(sql
                 , new MemberMapper()
                 , memberId);
     }
 
-    int saveNewMember(Member member) {
+    public int saveNewMember(Member member) {
         String sql = "insert into Members (firstname, lastname, telephone) values (?, ?, ?)";
         return jdbcTemplate.update(sql
                 , member.getFirstName()
@@ -36,14 +36,14 @@ public class MemberRepository {
                 , member.getTelephone());
     }
 
-    void buyBook(Long memberId, Long bookId) {
+    public void buyBook(Long memberId, Long bookId) {
         String sql = "insert into Buy (member_id, book_id) values (?, ?)";
         jdbcTemplate.update(sql
                 , memberId
                 , bookId);
     }
 
-    void updateMember(Long memberId, Member member) {
+    public void updateMember(Long memberId, Member member) {
         String sql = "update Members set firstname = ?, lastname = ?, telephone = ? where member_id = ?";
         jdbcTemplate.update(sql
                 , member.getFirstName()
@@ -52,7 +52,7 @@ public class MemberRepository {
                 , memberId);
     }
 
-    void deleteMember(Long memberId) {
+    public void deleteMember(Long memberId) {
         String sql = "delete from Members where member_id = ?";
         jdbcTemplate.update(sql
                 , memberId);

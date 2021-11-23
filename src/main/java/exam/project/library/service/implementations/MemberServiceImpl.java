@@ -18,31 +18,31 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Member> getAllMember() {
-        return null;
+        return memberRepository.getAllMember();
     }
 
     @Override
     public List<Member> getMemberById(Long memberId) {
-        return null;
+        return memberRepository.getMemberById(memberId);
     }
 
     @Override
     public int saveNewMember(Member member) {
-        return 1;
+        return memberRepository.saveNewMember(member);
     }
 
     @Override
     public void buyBook(Long memberId, Long bookId) {
-
+        memberRepository.buyBook(memberId, bookId);
     }
 
     @Override
     public void updateMember(Long memberId, Member member) {
-
+        memberRepository.updateMember(memberId, member);
     }
 
     @Override
     public void deleteMember(Long memberId) {
-
+        memberRepository.deleteMember(memberId);
     }
 }

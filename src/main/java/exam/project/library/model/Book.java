@@ -21,5 +21,9 @@ public class Book {
     @NotBlank(message = "Price is mandatory")
     private String price;
 
+//    @NotBlank(message = "Publisher is mandatory")
+    private Publisher publisher;
+
+//    @NotBlank(message = "Authors is mandatory")
     private Set<Author> authors;
 }

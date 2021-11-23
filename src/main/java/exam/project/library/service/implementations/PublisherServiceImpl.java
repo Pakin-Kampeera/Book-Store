@@ -18,26 +18,26 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public List<Publisher> getAllPublisher() {
-        return null;
+        return publisherRepository.getAllPublisher();
     }
 
     @Override
     public List<Publisher> getPublisherById(Long publisherId) {
-        return null;
+        return publisherRepository.getPublisherById(publisherId);
     }
 
     @Override
     public int saveNewPublisher(Publisher publisher) {
-        return 1;
+        return publisherRepository.saveNewPublisher(publisher);
     }
 
     @Override
     public void updatePublisher(Long publisherId, Publisher publisher) {
-
+        publisherRepository.updatePublisher(publisherId, publisher);
     }
 
     @Override
     public void deletePublisher(Long publisherId) {
-
+        publisherRepository.deletePublisher(publisherId);
     }
 }

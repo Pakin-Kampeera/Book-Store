@@ -15,27 +15,27 @@ public class BookRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    List<Book> getAllBook() {
+    public List<Book> getAllBook() {
         String sql = "select * from Books, Authors, Publishers, Write where Books.publisher_id = publishers.publisher_id and Write.author_id = Authors.author_id and Write.book_id = Books.book_id";
         return jdbcTemplate.query(sql
                 , new BookMapper());
     }
 
-    List<Book> getBookById(Long bookId) {
+    public List<Book> getBookById(Long bookId) {
         String sql = "select * from Books, Authors, Publishers, Write where Books.publisher_id = publishers.publisher_id and Write.author_id = Authors.author_id and Write.book_id = Books.book_id and Books.book_id = ?";
         return jdbcTemplate.query(sql
                 , new BookMapper()
                 , bookId);
     }
 
-    int saveNewBook(Book book) {
+    public int saveNewBook(Book book) {
         String sql = "insert into Books (title, price) values (?, ?)";
         return jdbcTemplate.update(sql,
                 book.getTitle(),
                 book.getPrice());
     }
 
-    void updateBook(Long bookId, Book book) {
+    public void updateBook(Long bookId, Book book) {
         String sql = "update Books set title = ?, price = ? where book_id = ?";
         jdbcTemplate.update(sql
                 , book.getTitle()
@@ -43,7 +43,7 @@ public class BookRepository {
                 , bookId);
     }
 
-    void deleteBook(Long bookId) {
+    public void deleteBook(Long bookId) {
         String sql = "delete from Books where book_id = ?";
         jdbcTemplate.update(sql
                 , bookId);

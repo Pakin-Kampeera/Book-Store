@@ -17,31 +17,31 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAllAuthor() {
-        return null;
+        return authorRepository.getAllAuthor();
     }
 
     @Override
     public List<Author> getAuthorById(Long authorId) {
-        return null;
+        return authorRepository.getAuthorById(authorId);
     }
 
     @Override
     public int saveNewAuthor(Author author) {
-        return 1;
+        return authorRepository.saveNewAuthor(author);
     }
 
     @Override
     public void saveWriteBook(Long authorId, Long bookId) {
-
+        authorRepository.saveWriteBook(authorId, bookId);
     }
 
     @Override
     public void updateAuthor(Long authorId, Author author) {
-
+        authorRepository.updateAuthor(authorId, author);
     }
 
     @Override
     public void deleteAuthor(Long authorId) {
-
+        authorRepository.deleteAuthor(authorId);
     }
 }

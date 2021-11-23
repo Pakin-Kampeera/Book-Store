@@ -15,20 +15,20 @@ public class PublisherRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    List<Publisher> getAllPublisher() {
+    public List<Publisher> getAllPublisher() {
         String sql = "select Publishers.*, Books.* from publishers, books where publishers.publisher_id = books.publisher_id";
         return jdbcTemplate.query(sql
                 , new PublisherMapper());
     }
 
-    List<Publisher> getPublisherById(Long publisherId) {
+    public List<Publisher> getPublisherById(Long publisherId) {
         String sql = "select Publishers.*, Books.* from publishers, books where publishers.publisher_id = books.publisher_id and Publishers.publisher_id = ?";
         return jdbcTemplate.query(sql
                 , new PublisherMapper()
                 , publisherId);
     }
 
-    int saveNewPublisher(Publisher publisher) {
+    public int saveNewPublisher(Publisher publisher) {
         String sql = "insert into Publishers (name, street, city, zip) values (?, ?, ?, ?)";
         return jdbcTemplate.update(sql
                 , publisher.getName()
@@ -37,7 +37,7 @@ public class PublisherRepository {
                 , publisher.getZip());
     }
 
-    void updatePublisher(Long publisherId, Publisher publisher) {
+    public void updatePublisher(Long publisherId, Publisher publisher) {
         String sql = "update Publishers set name = ?, street = ?, city = ?, zip = ? where publisher_id = ?";
         jdbcTemplate.update(sql
                 , publisher.getName()
@@ -47,7 +47,7 @@ public class PublisherRepository {
                 , publisherId);
     }
 
-    void deletePublisher(Long publisherId) {
+    public void deletePublisher(Long publisherId) {
         String sql = "delete from Books where Books.publisher_id = ?";
         jdbcTemplate.update(sql
                 , publisherId);
