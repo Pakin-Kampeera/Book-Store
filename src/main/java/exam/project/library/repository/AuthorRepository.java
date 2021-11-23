@@ -71,7 +71,7 @@ public class AuthorRepository {
         final StringJoiner sql = new StringJoiner(" ");
         sql.add("UPDATE")
                 .add("Authors")
-                .add("SET firstname = ?, lastname, ?")
+                .add("SET firstname = ?, lastname = ?")
                 .add("WHERE author_id = ?");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
