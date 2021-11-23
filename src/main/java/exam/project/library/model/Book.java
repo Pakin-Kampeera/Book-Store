@@ -1,29 +1,23 @@
 package exam.project.library.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
     private Long id;
 
-    @NotBlank(message = "Title is mandatory")
+    @NotBlank(message = "Title is required.")
     private String title;
 
-    @NotBlank(message = "Price is mandatory")
+    @NotBlank(message = "Price is required.")
     private String price;
 
-//    @NotBlank(message = "Publisher is mandatory")
     private Publisher publisher;
 
-//    @NotBlank(message = "Authors is mandatory")
     private Set<Author> authors;
 }
