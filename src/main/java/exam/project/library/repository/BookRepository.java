@@ -4,8 +4,11 @@ import exam.project.library.mapper.BookMapper;
 import exam.project.library.model.Book;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -48,15 +51,24 @@ public class BookRepository {
                 , bookId);
     }
 
-    public int saveNewBook(Book book) {
+    public long saveNewBook(Book book, Long publisherId) {
         final StringJoiner sql = new StringJoiner(" ");
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
         sql.add("INSERT INTO")
-                .add("Books (title, price)")
-                .add("VALUES (?, ?)");
-        log.info("sql = {}", sql);
-        return jdbcTemplate.update(sql.toString()
-                , book.getTitle()
-                , book.getPrice());
+                .add("Books (title, price, publisher_id)")
+                .add("VALUES (?, ?, ?)");
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection
+                    .prepareStatement(sql.toString(), new String[] {"book_id"});
+            ps.setString(1, book.getTitle());
+            ps.setString(2, book.getPrice());
+            ps.setLong(3, publisherId);
+            return ps;
+        }, keyHolder);
+
+        return keyHolder.getKey().longValue();
     }
 
     public void updateBook(Long bookId, Book book) {

@@ -70,8 +70,7 @@ class BookRepositoryTest {
     @Test
     void saveNewBook() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
-        bookRepository.saveNewBook(book1);
-        assertEquals(1, bookRepository.saveNewBook(book1));
+        bookRepository.saveNewBook(book1, 1L);
         verify(jdbcTemplate, times(2)).update(anyString(), anyString(), anyString());
     }
 

@@ -1,6 +1,7 @@
 package exam.project.library.controller;
 
 import exam.project.library.model.Author;
+import exam.project.library.model.Write;
 import exam.project.library.service.AuthorService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 
 @RequestMapping("/api/v1/author")
 @RestController
@@ -41,8 +41,8 @@ public class AuthorController {
 
     @PostMapping("/write")
     @ResponseStatus(HttpStatus.CREATED)
-    public void writeBook(@Valid @RequestBody HashMap<String, String> body) {
-        authorService.saveWriteBook(Long.parseLong(body.get("authorId")), Long.parseLong(body.get("bookId")));
+    public void writeBook(@Valid @RequestBody Write write) {
+        authorService.saveWriteBook(Long.parseLong(write.getAuthorId()), Long.parseLong(write.getBookId()));
     }
 
     @PutMapping("/{authorId}")

@@ -21,10 +21,10 @@ public class PublisherRepository {
     public List<Publisher> getAllPublisher() {
         final StringJoiner sql = new StringJoiner(" ");
         sql.add("SELECT")
-                .add("Publishers.* Books.*")
+                .add("Publishers.*, Books.*")
                 .add("FROM")
-                .add("Publishers, Books")
-                .add("WHERE Publishers.publisher_id = books.publisher_id");
+                .add("Publishers")
+                .add("LEFT JOIN Books ON Publishers.publisher_id = Books.publisher_id");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new PublisherMapper());
@@ -33,11 +33,11 @@ public class PublisherRepository {
     public List<Publisher> getPublisherById(Long publisherId) {
         final StringJoiner sql = new StringJoiner(" ");
         sql.add("SELECT")
-                .add("Publishers.* Books.*")
+                .add("Publishers.*, Books.*")
                 .add("FROM")
-                .add("Publishers, Books")
-                .add("WHERE Publishers.publisher_id = books.publisher_id")
-                .add("AND Publishers.publisher_id = ?");
+                .add("Publishers")
+                .add("LEFT JOIN Books ON Publishers.publisher_id = Books.publisher_id")
+                .add("WHERE Publishers.publisher_id = ?");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new PublisherMapper()

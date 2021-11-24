@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Data
@@ -16,6 +17,12 @@ public class Book {
 
     @NotBlank(message = "Price is required.")
     private String price;
+
+    @NotBlank(message = "Publisher is required.")
+    private String publisherId;
+
+    @NotEmpty(message = "Author is required.")
+    private Set<String> authorId;
 
     private Publisher publisher;
 

@@ -23,9 +23,8 @@ public class AuthorRepository {
         sql.add("SELECT")
                 .add("Books.*, Authors.*")
                 .add("FROM")
-                .add("Authors, Books, Write")
-                .add("WHERE Write.author_id = Authors.author_id")
-                .add("AND Write.book_id = Books.book_id");
+                .add("((Authors LEFT JOIN Write ON Authors.author_id = Write.author_id)")
+                .add("LEFT JOIN Books ON Books.book_id = Write.book_id)");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new AuthorMapper());
@@ -36,10 +35,9 @@ public class AuthorRepository {
         sql.add("SELECT")
                 .add("Books.*, Authors.*")
                 .add("FROM")
-                .add("Authors, Books, Write")
-                .add("WHERE Write.book_id = Books.book_id")
-                .add("AND Write.author_id = Authors.author_id")
-                .add("AND Write.author_id = ?");
+                .add("((Authors LEFT JOIN Write ON Authors.author_id = Write.author_id)")
+                .add("LEFT JOIN Books ON Books.book_id = Write.book_id)")
+                .add("WHERE Authors.author_id = ?");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new AuthorMapper(), authorId);
