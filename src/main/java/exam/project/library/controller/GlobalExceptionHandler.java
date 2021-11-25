@@ -22,15 +22,15 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    public static final String ACCESS_DENIED = "Access denied!";
-    public static final String INVALID_REQUEST = "Invalid request";
-    public static final String FIELD_ERROR_SEPARATOR = ": ";
-    private static final String PATH = "path";
-    private static final String ERRORS = "error";
-    private static final String STATUS = "status";
-    private static final String MESSAGE = "message";
-    private static final String TIMESTAMP = "timestamp";
-    private static final String TYPE = "type";
+    private final String ACCESS_DENIED = "Access denied!";
+    private final String INVALID_REQUEST = "Invalid request";
+    private final String FIELD_ERROR_SEPARATOR = ": ";
+    private final String PATH = "path";
+    private final String ERRORS = "error";
+    private final String STATUS = "status";
+    private final String MESSAGE = "message";
+    private final String TIMESTAMP = "timestamp";
+    private final String TYPE = "type";
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(

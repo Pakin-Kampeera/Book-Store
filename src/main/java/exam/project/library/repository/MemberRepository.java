@@ -13,13 +13,14 @@ import java.util.StringJoiner;
 @Repository
 public class MemberRepository {
     private final JdbcTemplate jdbcTemplate;
+    private final String BLANK_SPACE = " ";
 
     public MemberRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Member> getAllMember() {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Members.*, Books.*")
                 .add("FROM")
@@ -31,7 +32,7 @@ public class MemberRepository {
     }
 
     public List<Member> getMemberById(Long memberId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Members.*, Books.*")
                 .add("FROM")
@@ -45,7 +46,7 @@ public class MemberRepository {
     }
 
     public int saveNewMember(Member member) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
                 .add("Members (firstname, lastname, telephone)")
                 .add("VALUES (?, ?, ?)");
@@ -57,7 +58,7 @@ public class MemberRepository {
     }
 
     public void buyBook(Long memberId, Long bookId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
                 .add("Buy (member_id, book_id)")
                 .add("VALUES (?, ?)");
@@ -68,7 +69,7 @@ public class MemberRepository {
     }
 
     public void updateMember(Long memberId, Member member) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("UPDATE")
                 .add("Members")
                 .add("SET firstname = ?, lastname = ?, telephone = ?")
@@ -82,7 +83,7 @@ public class MemberRepository {
     }
 
     public void deleteMember(Long memberId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("DELETE FROM")
                 .add("Members")
                 .add("WHERE member_id = ?");

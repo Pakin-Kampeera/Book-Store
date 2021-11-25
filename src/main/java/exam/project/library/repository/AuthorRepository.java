@@ -13,13 +13,14 @@ import java.util.StringJoiner;
 @Repository
 public class AuthorRepository {
     private final JdbcTemplate jdbcTemplate;
+    private final String BLANK_SPACE = " ";
 
     public AuthorRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Author> getAllAuthor() {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Books.*, Authors.*")
                 .add("FROM")
@@ -31,7 +32,7 @@ public class AuthorRepository {
     }
 
     public List<Author> getAuthorById(Long authorId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Books.*, Authors.*")
                 .add("FROM")
@@ -44,7 +45,7 @@ public class AuthorRepository {
     }
 
     public int saveNewAuthor(Author author) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
                 .add("Authors (firstname, lastname)")
                 .add("VALUES (?, ?)");
@@ -55,7 +56,7 @@ public class AuthorRepository {
     }
 
     public void saveWriteBook(Long authorId, Long bookId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
                 .add("WRITE (author_id, book_id)")
                 .add("VALUES (?, ?)");
@@ -66,7 +67,7 @@ public class AuthorRepository {
     }
 
     public void updateAuthor(Long authorId, Author author) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("UPDATE")
                 .add("Authors")
                 .add("SET firstname = ?, lastname = ?")
@@ -79,7 +80,7 @@ public class AuthorRepository {
     }
 
     public void deleteAuthor(Long authorId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("DELETE FROM")
                 .add("Authors")
                 .add("WHERE author_id = ?");

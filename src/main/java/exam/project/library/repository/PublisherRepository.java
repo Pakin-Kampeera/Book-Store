@@ -13,13 +13,14 @@ import java.util.StringJoiner;
 @Repository
 public class PublisherRepository {
     private final JdbcTemplate jdbcTemplate;
+    private final String BLANK_SPACE = " ";
 
     public PublisherRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Publisher> getAllPublisher() {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Publishers.*, Books.*")
                 .add("FROM")
@@ -31,7 +32,7 @@ public class PublisherRepository {
     }
 
     public List<Publisher> getPublisherById(Long publisherId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Publishers.*, Books.*")
                 .add("FROM")
@@ -45,7 +46,7 @@ public class PublisherRepository {
     }
 
     public int saveNewPublisher(Publisher publisher) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
                 .add("Publishers (name, street, city, zip)")
                 .add("VALUES (?, ?, ?, ?)");
@@ -58,7 +59,7 @@ public class PublisherRepository {
     }
 
     public void updatePublisher(Long publisherId, Publisher publisher) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("UPDATE")
                 .add("Publishers")
                 .add("SET name = ?, street = ?, city = ?, zip = ?")
@@ -73,7 +74,7 @@ public class PublisherRepository {
     }
 
     public void deletePublisher(Long publisherId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("DELETE FROM")
                 .add("Books")
                 .add("WHERE Books.publisher_id = ?");

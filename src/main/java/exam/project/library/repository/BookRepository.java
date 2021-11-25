@@ -16,13 +16,14 @@ import java.util.StringJoiner;
 @Repository
 public class BookRepository {
     private final JdbcTemplate jdbcTemplate;
+    private final String BLANK_SPACE = " ";
 
     public BookRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Book> getAllBook() {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Books.*, Authors.*, Publishers.*")
                 .add("FROM")
@@ -36,7 +37,7 @@ public class BookRepository {
     }
 
     public List<Book> getBookById(Long bookId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
                 .add("Books.*, Authors.*, Publishers.*")
                 .add("FROM")
@@ -52,7 +53,7 @@ public class BookRepository {
     }
 
     public long saveNewBook(Book book, Long publisherId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         sql.add("INSERT INTO")
@@ -72,7 +73,7 @@ public class BookRepository {
     }
 
     public void updateBook(Long bookId, Book book) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("UPDATE")
                 .add("Books")
                 .add("SET title = ?, price = ?")
@@ -85,7 +86,7 @@ public class BookRepository {
     }
 
     public void deleteBook(Long bookId) {
-        final StringJoiner sql = new StringJoiner(" ");
+        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("DELETE FROM")
                 .add("Books")
                 .add("WHERE book_id = ?");
