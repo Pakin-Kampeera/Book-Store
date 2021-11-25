@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 class BookRepositoryTest {
+
     @Mock
     JdbcTemplate jdbcTemplate;
 
