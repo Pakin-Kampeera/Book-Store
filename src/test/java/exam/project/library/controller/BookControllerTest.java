@@ -14,6 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,9 +37,16 @@ class BookControllerTest {
 
     @BeforeEach
     void setUp() throws JsonProcessingException {
+        Set<String> authorsId = new HashSet<>();
+        authorsId.add("1L");
+        authorsId.add("2L");
+
         Book book = new Book();
         book.setTitle("Terminator");
         book.setPrice("35.00");
+        book.setPublisherId("1L");
+        book.setAuthorId(authorsId);
+
         this.body = objectMapper.writeValueAsString(book);
     }
 

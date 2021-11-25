@@ -69,9 +69,9 @@ class BookRepositoryTest {
 
     @Test
     void saveNewBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
-        bookRepository.saveNewBook(book1, 1L);
-        verify(jdbcTemplate, times(2)).update(anyString(), anyString(), anyString());
+        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        bookRepository.updateBook(1L, book1);
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
