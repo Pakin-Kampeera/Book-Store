@@ -26,14 +26,16 @@ public class MemberMapper implements ResultSetExtractor<List<Member>> {
                 memberMap.put(memberId, member);
             }
 
-            Member member = memberMap.get(memberId);
-            Set<Book> books = member.getBooks();
-            Book book = new Book();
-            book.setId(rs.getLong("book_id"));
-            book.setTitle(rs.getString("title"));
-            book.setPrice(rs.getString("price"));
-            books.add(book);
-            member.setBooks(books);
+            if (rs.getLong("book_id") != 0) {
+                Member member = memberMap.get(memberId);
+                Set<Book> books = member.getBooks();
+                Book book = new Book();
+                book.setId(rs.getLong("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getString("price"));
+                books.add(book);
+                member.setBooks(books);
+            }
         }
         return new ArrayList<>(memberMap.values());
     }

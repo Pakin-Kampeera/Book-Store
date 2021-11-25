@@ -78,7 +78,8 @@ VALUES (1, 1),
        (1, 3),
        (2, 1),
        (2, 3),
-       (2, 4);
+       (2, 4),
+       (3, 1);
 
 INSERT INTO Write (book_id, author_id)
 values (1, 1),

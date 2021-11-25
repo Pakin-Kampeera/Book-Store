@@ -26,16 +26,16 @@ public class PublisherMapper implements ResultSetExtractor<List<Publisher>> {
                 publisher.setBooks(new HashSet<>());
                 publisherMap.put(publisherId, publisher);
             }
-
-            Publisher publisher = publisherMap.get(publisherId);
-            Set<Book> books = publisher.getBooks();
-            Book book = new Book();
-            book.setId(rs.getLong("book_id"));
-            book.setTitle(rs.getString("title"));
-            book.setPrice(rs.getString("price"));
-            books.add(book);
-            publisher.setBooks(books);
-
+            if (rs.getLong("book_id") != 0) {
+                Publisher publisher = publisherMap.get(publisherId);
+                Set<Book> books = publisher.getBooks();
+                Book book = new Book();
+                book.setId(rs.getLong("book_id"));
+                book.setTitle(rs.getString("title"));
+                book.setPrice(rs.getString("price"));
+                books.add(book);
+                publisher.setBooks(books);
+            }
         }
         return new ArrayList<>(publisherMap.values());
     }

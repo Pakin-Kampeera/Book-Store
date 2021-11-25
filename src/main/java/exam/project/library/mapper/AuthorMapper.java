@@ -24,16 +24,16 @@ public class AuthorMapper implements ResultSetExtractor<List<Author>> {
                 authorMap.put(authorId, author);
             }
 
-            Author author = authorMap.get(authorId);
-            Set<Book> books = author.getBooks();
-            Book book = new Book();
             if (rs.getLong("book_id") != 0) {
+                Author author = authorMap.get(authorId);
+                Set<Book> books = author.getBooks();
+                Book book = new Book();
                 book.setId(rs.getLong("book_id"));
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getString("price"));
                 books.add(book);
+                author.setBooks(books);
             }
-            author.setBooks(books);
         }
         return new ArrayList<>(authorMap.values());
     }
