@@ -22,6 +22,7 @@ public class BookMapper implements ResultSetExtractor<List<Book>> {
                 book.setId(bookId);
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getString("price"));
+                book.setISBN(rs.getString("isbn"));
 
                 Publisher publisher = new Publisher();
                 publisher.setId(rs.getLong("publisher_id"));

@@ -18,6 +18,9 @@ public class Book {
     @NotBlank(message = "Price is required.")
     private String price;
 
+    @NotBlank(message = "ISBN is required.")
+    private String ISBN;
+
     @NotBlank(message = "Publisher is required.")
     private String publisherId;
 
