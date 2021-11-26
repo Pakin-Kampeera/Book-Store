@@ -1,6 +1,7 @@
 package exam.project.library.service.implementations;
 
 import exam.project.library.model.Member;
+import exam.project.library.model.Transaction;
 import exam.project.library.repository.MemberRepository;
 import exam.project.library.service.MemberService;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void buyBook(Long memberId, Long bookId) {
-        memberRepository.buyBook(memberId, bookId);
+    public void buyBook(Transaction transaction) {
+        memberRepository.buyBook(transaction.getMemberId(), transaction.getBookId());
+
     }
 
     @Override
