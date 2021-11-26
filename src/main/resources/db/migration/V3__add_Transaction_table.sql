@@ -1,22 +1,22 @@
 /* Create table */
-CREATE TABLE Transaction
+CREATE TABLE Transactions
 (
-    transaction_id int     NOT NULL GENERATED ALWAYS AS IDENTITY,
-    member_id      int     NOT NULL,
-    book_id        int     NOT NULL,
-    ISBN           varchar NOT NULL,
-    price          float   NOT NULL,
-    quantity       int     NOT NULL,
+    transaction_id int              NOT NULL GENERATED ALWAYS AS IDENTITY,
+    member_id      int              NOT NULL,
+    book_id        int              NOT NULL,
+    total_price    double precision NOT NULL,
+    quantity       int              NOT NULL,
+    date           timestamp        NOT NULL,
     CONSTRAINT transaction_pk PRIMARY KEY (transaction_id)
 );
 
 /* Inset values */
-INSERT INTO Transaction (member_id, book_id, ISBN, price, quantity)
-VALUES (1, 1, '0-7696-1930-4', 30.00, 1),
-       (1, 2, '0-8048-7360-7', 80.00, 2),
-       (1, 3, '0-7066-7258-5', 45.00, 1),
-       (2, 1, '0-7696-1930-4', 60.00, 2),
-       (2, 3, '0-7066-7258-5', 45.00, 1),
-       (2, 4, '0-7974-6269-4', 60.00, 2),
-       (3, 1, '0-7696-1930-4', 90.00, 3);
+INSERT INTO Transactions (member_id, book_id, total_price, quantity, date)
+VALUES (1, 1, 30.00, 1, '2021-03-19 08:07:22'),
+       (1, 2, 80.00, 2, '2020-08-01 16:55:33'),
+       (1, 3, 45.00, 1, '2021-05-25 03:59:33'),
+       (2, 1, 60.00, 2, '2018-11-22 08:07:58'),
+       (2, 3, 45.00, 1, '2020-02-09 12:05:33'),
+       (2, 4, 60.00, 2, '2021-11-15 15:50:24'),
+       (3, 1, 90.00, 3, '2021-03-23 18:00:00');
 

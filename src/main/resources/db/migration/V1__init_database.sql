@@ -23,10 +23,10 @@ CREATE TABLE Publishers
 
 CREATE TABLE Books
 (
-    book_id      int     NOT NULL GENERATED ALWAYS AS IDENTITY,
-    title        varchar NOT NULL,
-    price        float     NOT NULL,
-    publisher_id int     NOT NULL REFERENCES Publishers (publisher_id),
+    book_id      int              NOT NULL GENERATED ALWAYS AS IDENTITY,
+    title        varchar          NOT NULL,
+    price        double precision NOT NULL,
+    publisher_id int              NOT NULL REFERENCES Publishers (publisher_id),
     CONSTRAINT books_pk PRIMARY KEY (book_id)
 );
 

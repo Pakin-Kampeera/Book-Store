@@ -80,7 +80,7 @@ class MemberRepositoryTest {
     @Test
     void buyBook() {
         when(jdbcTemplate.update(anyString(), anyLong(), anyLong())).thenReturn(1);
-        memberRepository.buyBook(1L, 1L);
+//        memberRepository.buyBook(1L, 1L);
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong());
     }
 
