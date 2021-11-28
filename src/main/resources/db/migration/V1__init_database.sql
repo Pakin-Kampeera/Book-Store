@@ -4,44 +4,40 @@ DROP TABLE IF EXISTS Members, Books, Publishers, Authors, Write, Buy;
 /* Create tables */
 CREATE TABLE Members
 (
-    member_id int     NOT NULL GENERATED ALWAYS AS IDENTITY,
+    member_id SERIAL PRIMARY KEY,
     firstname varchar NOT NULL,
     lastname  varchar NOT NULL,
-    telephone varchar NOT NULL,
-    CONSTRAINT member_pk PRIMARY KEY (member_id)
+    telephone varchar NOT NULL
 );
 
 CREATE TABLE Publishers
 (
-    publisher_id int     NOT NULL GENERATED ALWAYS AS IDENTITY,
+    publisher_id SERIAL PRIMARY KEY,
     name         varchar NOT NULL,
     street       varchar NOT NULL,
     city         varchar NOT NULL,
-    zip          varchar NOT NULL,
-    CONSTRAINT publisher_pk PRIMARY KEY (publisher_id)
+    zip          varchar NOT NULL
 );
 
 CREATE TABLE Books
 (
-    book_id      int              NOT NULL GENERATED ALWAYS AS IDENTITY,
+    book_id      SERIAL PRIMARY KEY,
     title        varchar          NOT NULL,
     price        double precision NOT NULL,
-    publisher_id int              NOT NULL REFERENCES Publishers (publisher_id),
-    CONSTRAINT books_pk PRIMARY KEY (book_id)
+    publisher_id integer          NOT NULL REFERENCES Publishers (publisher_id)
 );
 
 CREATE TABLE Authors
 (
-    author_id int     NOT NULL GENERATED ALWAYS AS IDENTITY,
+    author_id SERIAL PRIMARY KEY,
     firstname varchar NOT NULL,
-    lastname  varchar NOT NULL,
-    CONSTRAINT author_pk PRIMARY KEY (author_id)
+    lastname  varchar NOT NULL
 );
 
-CREATE TABLE Write
+CREATE TABLE Books_Authors
 (
-    book_id   int NOT NULL,
-    author_id int NOT NULL
+    book_id   integer NOT NULL references Books (book_id),
+    author_id integer NOT NULL references Authors (author_id)
 );
 
 /* Insert values */
