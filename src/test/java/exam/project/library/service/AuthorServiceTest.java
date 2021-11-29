@@ -45,7 +45,7 @@ class AuthorServiceTest {
         book = new Book();
         book.setId(1L);
         book.setTitle("Tester");
-        book.setPrice("50.00");
+        book.setPrice(50.00);
         bookSet.add(book);
 
         author1 = new Author();

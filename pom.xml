@@ -19,7 +19,6 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <swagger.version>1.5.12</swagger.version>
-        <flyway.version>8.0.5</flyway.version>
     </properties>
 
     <dependencies>
@@ -73,11 +72,10 @@
         </dependency>
 
         <!-- Database migration -->
-<!--        <dependency>-->
-<!--            <groupId>org.flywaydb</groupId>-->
-<!--            <artifactId>flyway-core</artifactId>-->
-<!--            <version>${flyway.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

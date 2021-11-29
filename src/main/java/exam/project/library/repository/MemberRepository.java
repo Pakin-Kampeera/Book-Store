@@ -57,17 +57,6 @@ public class MemberRepository {
                 , member.getTelephone());
     }
 
-    public void buyBook(Long memberId, Long bookId) {
-        final StringJoiner sql = new StringJoiner(BLANK_SPACE);
-        sql.add("INSERT INTO")
-                .add("Buy (member_id, book_id)")
-                .add("VALUES (?, ?)");
-        log.info("sql = {}", sql);
-        jdbcTemplate.update(sql.toString()
-                , memberId
-                , bookId);
-    }
-
     public void updateMember(Long memberId, Member member) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("UPDATE")

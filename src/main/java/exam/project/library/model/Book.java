@@ -16,12 +16,15 @@ public class Book {
     private String title;
 
     @NotBlank(message = "Price is required.")
-    private String price;
+    private Double price;
+
+    @NotBlank(message = "ISBN is required.")
+    private String ISBN;
 
     @NotBlank(message = "Publisher is required.")
     private String publisherId;
 
-    @NotEmpty(message = "Author is required.")
+    @NotEmpty(message = "Author ID is required.")
     private Set<String> authorId;
 
     private Publisher publisher;

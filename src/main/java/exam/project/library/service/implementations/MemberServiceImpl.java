@@ -1,7 +1,9 @@
 package exam.project.library.service.implementations;
 
 import exam.project.library.model.Member;
+import exam.project.library.model.Transaction;
 import exam.project.library.repository.MemberRepository;
+import exam.project.library.repository.TransactionRepository;
 import exam.project.library.service.MemberService;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final TransactionRepository transactionRepository;
 
-    public MemberServiceImpl(MemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository, TransactionRepository transactionRepository) {
         this.memberRepository = memberRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     @Override
@@ -32,8 +36,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void buyBook(Long memberId, Long bookId) {
-        memberRepository.buyBook(memberId, bookId);
+    public void buyBook(Transaction transaction) {
+        transactionRepository.saveNewTransaction(transaction);
     }
 
     @Override

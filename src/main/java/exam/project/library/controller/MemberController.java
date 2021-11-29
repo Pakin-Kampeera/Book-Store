@@ -1,6 +1,7 @@
 package exam.project.library.controller;
 
 import exam.project.library.model.Member;
+import exam.project.library.model.Transaction;
 import exam.project.library.service.MemberService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 
 @RequestMapping("api/v1/member")
 @RestController
@@ -41,8 +41,8 @@ public class MemberController {
 
     @PostMapping("/buy")
     @ResponseStatus(HttpStatus.CREATED)
-    public void ownBook(@Valid @RequestBody HashMap<String, String> body) {
-        memberService.buyBook(Long.parseLong(body.get("memberId")), Long.parseLong(body.get("bookId")));
+    public void buyBook(@Valid @RequestBody Transaction transaction) {
+        memberService.buyBook(transaction);
     }
 
     @PutMapping("/{memberId}")

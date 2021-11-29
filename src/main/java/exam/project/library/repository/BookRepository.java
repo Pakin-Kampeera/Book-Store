@@ -64,7 +64,7 @@ public class BookRepository {
             PreparedStatement ps = connection
                     .prepareStatement(sql.toString(), new String[] {"book_id"});
             ps.setString(1, book.getTitle());
-            ps.setString(2, book.getPrice());
+            ps.setDouble(2, book.getPrice());
             ps.setLong(3, publisherId);
             return ps;
         }, keyHolder);

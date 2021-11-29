@@ -30,7 +30,8 @@ public class AuthorMapper implements ResultSetExtractor<List<Author>> {
                 Book book = new Book();
                 book.setId(rs.getLong("book_id"));
                 book.setTitle(rs.getString("title"));
-                book.setPrice(rs.getString("price"));
+                book.setPrice(rs.getDouble("price"));
+                book.setISBN(rs.getString("isbn"));
                 books.add(book);
                 author.setBooks(books);
             }
