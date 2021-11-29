@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -48,21 +46,15 @@ public class TransactionRepository {
                 , transactionId);
     }
 
-    public void saveNewTransaction(Transaction transaction, String bookId) {
+    public void saveNewTransaction(Transaction transaction) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String formatDateTime = now.format(format);
         sql.add("INSERT INTO")
-                .add("Transactions (member_id, book_id, total_price, quantity, date)")
-                .add("VALUES (?, ?, ?, ?, ?)");
+                .add("Transactions (member_id, book_id, quantity, date)")
+                .add("VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
         log.info("sql = {}", sql);
-        log.info("time = {}", formatDateTime);
         jdbcTemplate.update(sql.toString()
-                , transaction.getMemberId()
-                , bookId
-                , transaction.getTotalPrice()
-                , transaction.getQuantity()
-                , formatDateTime);
+                , Integer.parseInt(transaction.getMemberId())
+                , Integer.parseInt(transaction.getBookId())
+                , transaction.getQuantity());
     }
 }

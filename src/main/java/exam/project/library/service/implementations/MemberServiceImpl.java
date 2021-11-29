@@ -37,9 +37,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void buyBook(Transaction transaction) {
-        for (String bookId : transaction.getBookId()) {
-            transactionRepository.saveNewTransaction(transaction, bookId);
-        }
+        transactionRepository.saveNewTransaction(transaction);
     }
 
     @Override

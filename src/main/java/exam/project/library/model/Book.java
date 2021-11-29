@@ -27,8 +27,6 @@ public class Book {
     @NotEmpty(message = "Author ID is required.")
     private Set<String> authorId;
 
-    private int quantity;
-
     private Publisher publisher;
 
     private Set<Author> authors;

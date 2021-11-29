@@ -34,7 +34,7 @@ CREATE TABLE Authors
     lastname  varchar NOT NULL
 );
 
-CREATE TABLE Books_Authors
+CREATE TABLE Write
 (
     book_id   integer NOT NULL references Books (book_id),
     author_id integer NOT NULL references Authors (author_id)

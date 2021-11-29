@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -17,7 +16,7 @@ public class Transaction {
     private String memberId;
 
     @NotEmpty(message = "Book ID is required.")
-    private Set<String> bookId;
+    private String bookId;
 
     @NotNull(message = "Quantity is required.")
     private int quantity;
@@ -28,5 +27,5 @@ public class Transaction {
 
     private Member member;
 
-    private Set<Book> books;
+    private Book book;
 }
