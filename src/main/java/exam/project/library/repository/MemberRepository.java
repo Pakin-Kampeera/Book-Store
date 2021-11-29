@@ -24,8 +24,8 @@ public class MemberRepository {
         sql.add("SELECT")
                 .add("Members.*, Books.*")
                 .add("FROM")
-                .add("((Members LEFT JOIN Buy ON Members.member_id = Buy.member_id)")
-                .add("LEFT JOIN Books ON Books.book_id = Buy.Book_id)");
+                .add("((Members LEFT JOIN Transactions ON Members.member_id = Transactions.member_id)")
+                .add("LEFT JOIN Books ON Books.book_id = Transactions.Book_id)");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new MemberMapper());
@@ -36,8 +36,8 @@ public class MemberRepository {
         sql.add("SELECT")
                 .add("Members.*, Books.*")
                 .add("FROM")
-                .add("((Members LEFT JOIN Buy ON Members.member_id = Buy.member_id)")
-                .add("LEFT JOIN Books ON Books.book_id = Buy.Book_id)")
+                .add("((Members LEFT JOIN Transactions ON Members.member_id = Transactions.member_id)")
+                .add("LEFT JOIN Books ON Books.book_id = Transactions.Book_id)")
                 .add("WHERE Members.member_id = ?");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()

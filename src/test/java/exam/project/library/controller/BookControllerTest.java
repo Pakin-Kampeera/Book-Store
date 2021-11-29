@@ -44,6 +44,7 @@ class BookControllerTest {
         Book book = new Book();
         book.setTitle("Terminator");
         book.setPrice(35.00);
+        book.setISBN("0-4147-3111-5");
         book.setPublisherId("1L");
         book.setAuthorId(authorsId);
 

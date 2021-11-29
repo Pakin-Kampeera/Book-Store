@@ -37,7 +37,7 @@ class BookServiceTest {
         book1 = new Book();
         book1.setId(1L);
         book1.setTitle("The matrix");
-        book1.setPrice(25.50);
+        book1.setPrice(25.00);
 
         book2 = new Book();
         book2.setId(2L);
@@ -72,16 +72,16 @@ class BookServiceTest {
 
     @Test
     void saveNewBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
         bookRepository.updateBook(1L, book1);
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyLong());
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
     }
 
     @Test
     void updateBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
         bookRepository.updateBook(1L, book1);
-        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyLong());
+        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
     }
 
     @Test

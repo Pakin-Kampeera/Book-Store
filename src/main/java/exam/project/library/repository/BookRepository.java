@@ -57,8 +57,8 @@ public class BookRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         sql.add("INSERT INTO")
-                .add("Books (title, price, publisher_id)")
-                .add("VALUES (?, ?, ?)");
+                .add("Books (title, price, publisher_id, isbn)")
+                .add("VALUES (?, ?, ?, ?)");
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
@@ -66,6 +66,7 @@ public class BookRepository {
             ps.setString(1, book.getTitle());
             ps.setDouble(2, book.getPrice());
             ps.setLong(3, publisherId);
+            ps.setString(4, book.getISBN());
             return ps;
         }, keyHolder);
 

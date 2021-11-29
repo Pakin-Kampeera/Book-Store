@@ -78,13 +78,6 @@ class MemberRepositoryTest {
     }
 
     @Test
-    void buyBook() {
-        when(jdbcTemplate.update(anyString(), anyLong(), anyLong())).thenReturn(1);
-//        memberRepository.buyBook(1L, 1L);
-        verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong());
-    }
-
-    @Test
     void updateMember() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
         memberRepository.updateMember(1L, member1);
