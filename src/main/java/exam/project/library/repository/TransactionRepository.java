@@ -53,8 +53,8 @@ public class TransactionRepository {
                 .add("VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
-                , Integer.parseInt(transaction.getMemberId())
-                , Integer.parseInt(transaction.getBookId())
+                , transaction.getMemberId()
+                , transaction.getBookId()
                 , transaction.getQuantity());
     }
 }
