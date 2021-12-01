@@ -24,7 +24,7 @@ CREATE TABLE Books
     book_id      SERIAL PRIMARY KEY,
     title        varchar          NOT NULL,
     price        double precision NOT NULL,
-    publisher_id integer          NOT NULL REFERENCES Publishers (publisher_id)
+    publisher_id integer          NOT NULL
 );
 
 CREATE TABLE Authors
@@ -36,8 +36,8 @@ CREATE TABLE Authors
 
 CREATE TABLE Write
 (
-    book_id   integer NOT NULL references Books (book_id),
-    author_id integer NOT NULL references Authors (author_id)
+    book_id   integer NOT NULL,
+    author_id integer NOT NULL
 );
 
 /* Insert values */
