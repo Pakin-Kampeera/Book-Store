@@ -5,10 +5,11 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Write {
+public class Write implements Serializable {
     @NotNull(message = "Author ID is required.")
     private String authorId;
 

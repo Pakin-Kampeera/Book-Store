@@ -36,19 +36,19 @@ class TransactionRepositoryTest {
         this.transactionRepository = new TransactionRepository(jdbcTemplate);
 
         Member member = new Member();
-        member.setId(1L);
+        member.setMemberId(1L);
         member.setFirstName("Steve");
         member.setLastName("Jobs");
         member.setTelephone("9834757936");
 
         Book book = new Book();
-        book.setId(1L);
+        book.setBookId(1L);
         book.setTitle("The matrix");
         book.setPrice(25.50);
         book.setISBN("0-7696-1930-4");
 
         transaction = new Transaction();
-        transaction.setId(1L);
+        transaction.setTransactionId(1L);
         transaction.setQuantity(1);
         transaction.setDate(LocalDateTime.now());
         transaction.setTotalPrice(30.00);

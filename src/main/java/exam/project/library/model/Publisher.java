@@ -1,15 +1,18 @@
 package exam.project.library.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Publisher {
-    private Long id;
+public class Publisher implements Serializable {
+    @JsonProperty("id")
+    private Long publisherId;
 
     @NotBlank(message = "Name is required.")
     private String name;

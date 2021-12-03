@@ -16,11 +16,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+//    @Cacheable(value = "author")
     public List<Author> getAllAuthor() {
         return authorRepository.getAllAuthor();
     }
 
     @Override
+//    @Cacheable(value = "author", key = "#authorId")
     public List<Author> getAuthorById(Long authorId) {
         return authorRepository.getAuthorById(authorId);
     }
@@ -36,11 +38,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+//    @CachePut(value = "author", key = "#authorId")
     public void updateAuthor(Long authorId, Author author) {
         authorRepository.updateAuthor(authorId, author);
     }
 
     @Override
+//    @CacheEvict(value = "author", key = "#authorId")
     public void deleteAuthor(Long authorId) {
         authorRepository.deleteAuthor(authorId);
     }

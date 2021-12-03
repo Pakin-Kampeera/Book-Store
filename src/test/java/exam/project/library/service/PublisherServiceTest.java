@@ -35,14 +35,14 @@ class PublisherServiceTest {
         this.publisherRepository = new PublisherRepository(jdbcTemplate);
 
         publisher1 = new Publisher();
-        publisher1.setId(1L);
+        publisher1.setPublisherId(1L);
         publisher1.setName("London House");
         publisher1.setStreet("1234");
         publisher1.setCity("Manchester");
         publisher1.setZip("2456");
 
         publisher2 = new Publisher();
-        publisher2.setId(1L);
+        publisher2.setPublisherId(1L);
         publisher2.setName("City Hall");
         publisher2.setStreet("7432");
         publisher2.setCity("Houston");

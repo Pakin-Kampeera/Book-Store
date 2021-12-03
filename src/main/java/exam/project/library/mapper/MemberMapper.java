@@ -18,7 +18,7 @@ public class MemberMapper implements ResultSetExtractor<List<Member>> {
             Long memberId = rs.getLong("member_id");
             if (memberMap.get(memberId) == null) {
                 Member member = new Member();
-                member.setId(rs.getLong("member_id"));
+                member.setMemberId(rs.getLong("member_id"));
                 member.setFirstName(rs.getString("firstname"));
                 member.setLastName(rs.getString("lastname"));
                 member.setTelephone(rs.getString("telephone"));
@@ -30,7 +30,7 @@ public class MemberMapper implements ResultSetExtractor<List<Member>> {
                 Member member = memberMap.get(memberId);
                 Set<Book> books = member.getBooks();
                 Book book = new Book();
-                book.setId(rs.getLong("book_id"));
+                book.setBookId(rs.getLong("book_id"));
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getDouble("price"));
                 book.setISBN(rs.getString("isbn"));

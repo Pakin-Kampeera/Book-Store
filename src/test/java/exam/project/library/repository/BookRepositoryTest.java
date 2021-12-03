@@ -33,12 +33,12 @@ class BookRepositoryTest {
         this.bookRepository = new BookRepository(jdbcTemplate);
 
         book1 = new Book();
-        book1.setId(1L);
+        book1.setBookId(1L);
         book1.setTitle("The matrix");
         book1.setPrice(25.50);
 
         book2 = new Book();
-        book2.setId(2L);
+        book2.setBookId(2L);
         book2.setTitle("Apocalypse");
         book2.setPrice(30.00);
     }

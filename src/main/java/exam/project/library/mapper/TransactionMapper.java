@@ -23,20 +23,20 @@ public class TransactionMapper implements ResultSetExtractor<List<Transaction>> 
             Long transactionId = rs.getLong("transaction_id");
             if (transactionMap.get(transactionId) == null) {
                 Transaction transaction = new Transaction();
-                transaction.setId(rs.getLong("transaction_id"));
+                transaction.setTransactionId(rs.getLong("transaction_id"));
                 transaction.setQuantity(rs.getInt("quantity"));
                 transaction.setTotalPrice(rs.getDouble("price") * rs.getInt("quantity"));
                 transaction.setDate(rs.getObject("date", LocalDateTime.class));
 
                 Book book = new Book();
-                book.setId(rs.getLong("book_id"));
+                book.setBookId(rs.getLong("book_id"));
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getDouble("price"));
                 book.setISBN(rs.getString("isbn"));
                 transaction.setBook(book);
 
                 Member member = new Member();
-                member.setId(rs.getLong("member_id"));
+                member.setMemberId(rs.getLong("member_id"));
                 member.setFirstName(rs.getString("firstname"));
                 member.setLastName(rs.getString("lastname"));
                 member.setTelephone(rs.getString("telephone"));

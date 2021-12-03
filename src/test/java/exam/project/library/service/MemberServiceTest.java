@@ -35,13 +35,13 @@ class MemberServiceTest {
         this.memberRepository = new MemberRepository(jdbcTemplate);
 
         member1 = new Member();
-        member1.setId(1L);
+        member1.setMemberId(1L);
         member1.setFirstName("Steve");
         member1.setLastName("Jobs");
         member1.setTelephone("9834757936");
 
         member2 = new Member();
-        member2.setId(2L);
+        member2.setMemberId(2L);
         member2.setFirstName("Tim");
         member2.setLastName("Cook");
         member2.setTelephone("8983498739");

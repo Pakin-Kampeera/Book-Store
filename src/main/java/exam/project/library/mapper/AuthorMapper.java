@@ -17,7 +17,7 @@ public class AuthorMapper implements ResultSetExtractor<List<Author>> {
             Long authorId = rs.getLong("author_id");
             if (authorMap.get(authorId) == null) {
                 Author author = new Author();
-                author.setId(authorId);
+                author.setAuthorId(authorId);
                 author.setFirstName(rs.getString("firstname"));
                 author.setLastName(rs.getString("lastname"));
                 author.setBooks(new HashSet<>());
@@ -28,7 +28,7 @@ public class AuthorMapper implements ResultSetExtractor<List<Author>> {
                 Author author = authorMap.get(authorId);
                 Set<Book> books = author.getBooks();
                 Book book = new Book();
-                book.setId(rs.getLong("book_id"));
+                book.setBookId(rs.getLong("book_id"));
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getDouble("price"));
                 book.setISBN(rs.getString("isbn"));

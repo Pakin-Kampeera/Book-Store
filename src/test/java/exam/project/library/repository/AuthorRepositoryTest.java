@@ -39,18 +39,18 @@ class AuthorRepositoryTest {
 
         Set<Book> bookSet = new HashSet<>();
         book = new Book();
-        book.setId(1L);
+        book.setBookId(1L);
         book.setTitle("Tester");
         book.setPrice(50.00);
         bookSet.add(book);
 
         author1 = new Author();
-        author1.setId(1L);
+        author1.setAuthorId(1L);
         author1.setFirstName("Peter");
         author1.setLastName("Kim");
 
         author2 = new Author();
-        author2.setId(2L);
+        author2.setAuthorId(2L);
         author2.setFirstName("Bob");
         author2.setLastName("Euro");
     }

@@ -18,7 +18,7 @@ public class PublisherMapper implements ResultSetExtractor<List<Publisher>> {
             Long publisherId = rs.getLong("publisher_id");
             if (publisherMap.get(publisherId) == null) {
                 Publisher publisher = new Publisher();
-                publisher.setId(rs.getLong("publisher_id"));
+                publisher.setPublisherId(rs.getLong("publisher_id"));
                 publisher.setName(rs.getString("name"));
                 publisher.setStreet(rs.getString("street"));
                 publisher.setCity(rs.getString("city"));
@@ -30,7 +30,7 @@ public class PublisherMapper implements ResultSetExtractor<List<Publisher>> {
                 Publisher publisher = publisherMap.get(publisherId);
                 Set<Book> books = publisher.getBooks();
                 Book book = new Book();
-                book.setId(rs.getLong("book_id"));
+                book.setBookId(rs.getLong("book_id"));
                 book.setTitle(rs.getString("title"));
                 book.setPrice(rs.getDouble("price"));
                 book.setISBN(rs.getString("isbn"));
