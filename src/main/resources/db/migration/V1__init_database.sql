@@ -47,7 +47,7 @@ VALUES ('Steve', 'Jobs', '12345678'),
        ('Jason', 'Hammer', '63845356');
 
 INSERT INTO Publishers (name, street, city, zip)
-values ('Wall Street', '15 Ings Lane', 'DAVENTRY', 'NN11 2JW'),
+VALUES ('Wall Street', '15 Ings Lane', 'DAVENTRY', 'NN11 2JW'),
        ('London House', '27 St Denys Road', 'PREES HIGHER HEATH', 'SY13 5DX');
 
 INSERT INTO Books (title, price, publisher_id)
@@ -63,7 +63,7 @@ VALUES ('Tom', 'Hank'),
        ('Patrick', 'Rothfuss');
 
 INSERT INTO Write (book_id, author_id)
-values (1, 1),
+VALUES (1, 1),
        (1, 3),
        (2, 1),
        (2, 2),

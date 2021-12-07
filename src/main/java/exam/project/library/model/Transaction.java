@@ -1,6 +1,5 @@
 package exam.project.library.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -11,19 +10,20 @@ import java.time.LocalDateTime;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties({"memberId", "bookId"})
 public class Transaction implements Serializable {
     @JsonProperty("id")
     private Long transactionId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "Member ID is required.")
-    private int memberId;
+    private Integer memberId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(message = "Book ID is required.")
-    private int bookId;
+    private Integer bookId;
 
     @NotNull(message = "Quantity is required.")
-    private int quantity;
+    private Integer quantity;
 
     private LocalDateTime date;
 
