@@ -66,7 +66,7 @@ class MemberControllerTest {
 
     @Test
     void ownBook() throws Exception {
-        String content = "{\"memberId\":\"3\",\"bookId\":\"3\"}";
+        String content = "{\"memberId\":\"3\",\"bookId\":\"3\",\"quantity\":\"3\"}";
         mockMvc.perform(post("/api/v1/member/buy")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content))

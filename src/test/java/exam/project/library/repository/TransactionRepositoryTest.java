@@ -48,6 +48,8 @@ class TransactionRepositoryTest {
         book.setISBN("0-7696-1930-4");
 
         transaction = new Transaction();
+        transaction.setMemberId(1);
+        transaction.setBookId(1);
         transaction.setTransactionId(1L);
         transaction.setQuantity(1);
         transaction.setDate(LocalDateTime.now());
