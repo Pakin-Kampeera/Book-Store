@@ -34,10 +34,10 @@ class MemberControllerTest {
 
     @BeforeEach
     void setUp() throws JsonProcessingException {
-        Member member = new Member();
-        member.setFirstName("Anna");
-        member.setLastName("Sweet");
-        member.setTelephone("025478964");
+        Member member = new Member()
+                .setFirstName("Anna")
+                .setLastName("Sweet")
+                .setTelephone("025478964");
         this.body = objectMapper.writeValueAsString(member);
     }
 

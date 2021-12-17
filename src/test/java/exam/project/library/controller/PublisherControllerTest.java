@@ -34,11 +34,11 @@ class PublisherControllerTest {
 
     @BeforeEach
     void setUp() throws JsonProcessingException {
-        Publisher publisher = new Publisher();
-        publisher.setName("Wall Street");
-        publisher.setStreet("3526 Morris Street");
-        publisher.setCity("San Antonio");
-        publisher.setZip("78218");
+        Publisher publisher = new Publisher()
+                .setName("Wall Street")
+                .setStreet("3526 Morris Street")
+                .setCity("San Antonio")
+                .setZip("78218");
         this.body = objectMapper.writeValueAsString(publisher);
     }
 

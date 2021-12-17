@@ -34,9 +34,9 @@ class AuthorControllerTest {
 
     @BeforeEach
     void setUp() throws JsonProcessingException {
-        Author author = new Author();
-        author.setFirstName("John");
-        author.setLastName("Kate");
+        Author author = new Author()
+                .setFirstName("John")
+                .setLastName("Kate");
         this.body = objectMapper.writeValueAsString(author);
     }
 

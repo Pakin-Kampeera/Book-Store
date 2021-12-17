@@ -18,30 +18,28 @@ public class TransactionMapper implements ResultSetExtractor<List<Transaction>> 
     @Override
     public List<Transaction> extractData(ResultSet rs) throws SQLException, DataAccessException {
         Map<Long, Transaction> transactionMap = new HashMap<>();
-        Map<Long, Book> bookMap = new HashMap<>();
         while (rs.next()) {
             Long transactionId = rs.getLong("transaction_id");
             if (transactionMap.get(transactionId) == null) {
-                Transaction transaction = new Transaction();
-                transaction.setTransactionId(rs.getLong("transaction_id"));
-                transaction.setQuantity(rs.getInt("quantity"));
-                transaction.setTotalPrice(rs.getDouble("price") * rs.getInt("quantity"));
-                transaction.setDate(rs.getObject("date", LocalDateTime.class));
+                Transaction transaction = new Transaction()
+                        .setTransactionId(rs.getLong("transaction_id"))
+                        .setQuantity(rs.getInt("quantity"))
+                        .setTotalPrice(rs.getDouble("price") * rs.getInt("quantity"))
+                        .setDate(rs.getObject("date", LocalDateTime.class));
 
-                Book book = new Book();
-                book.setBookId(rs.getLong("book_id"));
-                book.setTitle(rs.getString("title"));
-                book.setPrice(rs.getDouble("price"));
-                book.setISBN(rs.getString("isbn"));
+                Book book = new Book()
+                        .setBookId(rs.getLong("book_id"))
+                        .setTitle(rs.getString("title"))
+                        .setPrice(rs.getDouble("price"))
+                        .setISBN(rs.getString("isbn"));
                 transaction.setBook(book);
 
-                Member member = new Member();
-                member.setMemberId(rs.getLong("member_id"));
-                member.setFirstName(rs.getString("firstname"));
-                member.setLastName(rs.getString("lastname"));
-                member.setTelephone(rs.getString("telephone"));
+                Member member = new Member()
+                        .setMemberId(rs.getLong("member_id"))
+                        .setFirstName(rs.getString("firstname"))
+                        .setLastName(rs.getString("lastname"))
+                        .setTelephone(rs.getString("telephone"));
                 transaction.setMember(member);
-
                 transactionMap.put(transactionId, transaction);
             }
         }

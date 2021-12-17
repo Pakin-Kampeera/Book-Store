@@ -32,17 +32,17 @@ class MemberRepositoryTest {
         MockitoAnnotations.openMocks(this);
         this.memberRepository = new MemberRepository(jdbcTemplate);
 
-        member1 = new Member();
-        member1.setMemberId(1L);
-        member1.setFirstName("Steve");
-        member1.setLastName("Jobs");
-        member1.setTelephone("9834757936");
+        member1 = new Member()
+                .setMemberId(1L)
+                .setFirstName("Steve")
+                .setLastName("Jobs")
+                .setTelephone("9834757936");
 
-        member2 = new Member();
-        member2.setMemberId(2L);
-        member2.setFirstName("Tim");
-        member2.setLastName("Cook");
-        member2.setTelephone("8983498739");
+        member2 = new Member()
+                .setMemberId(2L)
+                .setFirstName("Tim")
+                .setLastName("Cook")
+                .setTelephone("8983498739");
     }
 
     @Test

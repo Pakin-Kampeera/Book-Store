@@ -16,22 +16,22 @@ public class AuthorMapper implements ResultSetExtractor<List<Author>> {
         while (rs.next()) {
             Long authorId = rs.getLong("author_id");
             if (authorMap.get(authorId) == null) {
-                Author author = new Author();
-                author.setAuthorId(authorId);
-                author.setFirstName(rs.getString("firstname"));
-                author.setLastName(rs.getString("lastname"));
-                author.setBooks(new HashSet<>());
+                Author author = new Author()
+                        .setAuthorId(authorId)
+                        .setFirstName(rs.getString("firstname"))
+                        .setLastName(rs.getString("lastname"))
+                        .setBooks(new HashSet<>());
                 authorMap.put(authorId, author);
             }
 
             if (rs.getLong("book_id") != 0) {
                 Author author = authorMap.get(authorId);
                 Set<Book> books = author.getBooks();
-                Book book = new Book();
-                book.setBookId(rs.getLong("book_id"));
-                book.setTitle(rs.getString("title"));
-                book.setPrice(rs.getDouble("price"));
-                book.setISBN(rs.getString("isbn"));
+                Book book = new Book()
+                        .setBookId(rs.getLong("book_id"))
+                        .setTitle(rs.getString("title"))
+                        .setPrice(rs.getDouble("price"))
+                        .setISBN(rs.getString("isbn"));
                 books.add(book);
                 author.setBooks(books);
             }

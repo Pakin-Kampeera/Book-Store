@@ -37,25 +37,27 @@ class TransactionServiceTest {
         MockitoAnnotations.openMocks(this);
         this.transactionRepository = new TransactionRepository(jdbcTemplate);
 
-        Member member = new Member();
-        member.setMemberId(1L);
-        member.setFirstName("Steve");
-        member.setLastName("Jobs");
-        member.setTelephone("9834757936");
+        Member member = new Member()
+                .setMemberId(1L)
+                .setFirstName("Steve")
+                .setLastName("Jobs")
+                .setTelephone("9834757936");
 
-        Book book = new Book();
-        book.setBookId(1L);
-        book.setTitle("The matrix");
-        book.setPrice(25.50);
-        book.setISBN("0-7696-1930-4");
+        Book book = new Book()
+                .setBookId(1L)
+                .setTitle("The matrix")
+                .setPrice(25.50)
+                .setISBN("0-7696-1930-4");
 
-        transaction = new Transaction();
-        transaction.setTransactionId(1L);
-        transaction.setQuantity(1);
-        transaction.setDate(LocalDateTime.now());
-        transaction.setTotalPrice(30.00);
-        transaction.setMember(member);
-        transaction.setBook(book);
+        transaction = new Transaction()
+                .setMemberId(1)
+                .setBookId(1)
+                .setTransactionId(1L)
+                .setQuantity(1)
+                .setDate(LocalDateTime.now())
+                .setTotalPrice(30.00)
+                .setMember(member)
+                .setBook(book);
     }
 
     @Test

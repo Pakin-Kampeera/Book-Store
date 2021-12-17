@@ -17,23 +17,23 @@ public class MemberMapper implements ResultSetExtractor<List<Member>> {
         while (rs.next()) {
             Long memberId = rs.getLong("member_id");
             if (memberMap.get(memberId) == null) {
-                Member member = new Member();
-                member.setMemberId(rs.getLong("member_id"));
-                member.setFirstName(rs.getString("firstname"));
-                member.setLastName(rs.getString("lastname"));
-                member.setTelephone(rs.getString("telephone"));
-                member.setBooks(new HashSet<>());
+                Member member = new Member()
+                        .setMemberId(rs.getLong("member_id"))
+                        .setFirstName(rs.getString("firstname"))
+                        .setLastName(rs.getString("lastname"))
+                        .setTelephone(rs.getString("telephone"))
+                        .setBooks(new HashSet<>());
                 memberMap.put(memberId, member);
             }
 
             if (rs.getLong("book_id") != 0) {
                 Member member = memberMap.get(memberId);
                 Set<Book> books = member.getBooks();
-                Book book = new Book();
-                book.setBookId(rs.getLong("book_id"));
-                book.setTitle(rs.getString("title"));
-                book.setPrice(rs.getDouble("price"));
-                book.setISBN(rs.getString("isbn"));
+                Book book = new Book()
+                        .setBookId(rs.getLong("book_id"))
+                        .setTitle(rs.getString("title"))
+                        .setPrice(rs.getDouble("price"))
+                        .setISBN(rs.getString("isbn"));
                 books.add(book);
                 member.setBooks(books);
             }

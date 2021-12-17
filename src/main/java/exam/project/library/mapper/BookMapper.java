@@ -18,31 +18,31 @@ public class BookMapper implements ResultSetExtractor<List<Book>> {
         while (rs.next()) {
             Long bookId = rs.getLong("book_id");
             if (bookMap.get(bookId) == null) {
-                Book book = new Book();
-                book.setBookId(bookId);
-                book.setTitle(rs.getString("title"));
-                book.setPrice(rs.getDouble("price"));
-                book.setISBN(rs.getString("isbn"));
+                Book book = new Book()
+                        .setBookId(bookId)
+                        .setTitle(rs.getString("title"))
+                        .setPrice(rs.getDouble("price"))
+                        .setISBN(rs.getString("isbn"));
 
-                Publisher publisher = new Publisher();
-                publisher.setPublisherId(rs.getLong("publisher_id"));
-                publisher.setName(rs.getString("name"));
-                publisher.setStreet(rs.getString("street"));
-                publisher.setCity(rs.getString("city"));
-                publisher.setZip(rs.getString("zip"));
+                Publisher publisher = new Publisher()
+                        .setPublisherId(rs.getLong("publisher_id"))
+                        .setName(rs.getString("name"))
+                        .setStreet(rs.getString("street"))
+                        .setCity(rs.getString("city"))
+                        .setZip(rs.getString("zip"));
 
-                book.setPublisher(publisher);
-                book.setAuthors(new HashSet<>());
+                book.setPublisher(publisher)
+                        .setAuthors(new HashSet<>());
                 bookMap.put(bookId, book);
             }
 
             if (rs.getLong("author_id") != 0) {
                 Book book = bookMap.get(bookId);
                 Set<Author> authors = book.getAuthors();
-                Author author = new Author();
-                author.setAuthorId(rs.getLong("author_id"));
-                author.setFirstName(rs.getString("firstname"));
-                author.setLastName(rs.getString("lastname"));
+                Author author = new Author()
+                        .setAuthorId(rs.getLong("author_id"))
+                        .setFirstName(rs.getString("firstname"))
+                        .setLastName(rs.getString("lastname"));
                 authors.add(author);
                 book.setAuthors(authors);
             }

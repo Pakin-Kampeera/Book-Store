@@ -32,19 +32,19 @@ class PublisherRepositoryTest {
         MockitoAnnotations.openMocks(this);
         this.publisherRepository = new PublisherRepository(jdbcTemplate);
 
-        publisher1 = new Publisher();
-        publisher1.setPublisherId(1L);
-        publisher1.setName("London House");
-        publisher1.setStreet("1234");
-        publisher1.setCity("Manchester");
-        publisher1.setZip("2456");
+        publisher1 = new Publisher()
+                .setPublisherId(1L)
+                .setName("London House")
+                .setStreet("1234")
+                .setCity("Manchester")
+                .setZip("2456");
 
-        publisher2 = new Publisher();
-        publisher2.setPublisherId(1L);
-        publisher2.setName("City Hall");
-        publisher2.setStreet("7432");
-        publisher2.setCity("Houston");
-        publisher2.setZip("8589");
+        publisher2 = new Publisher()
+                .setPublisherId(1L)
+                .setName("City Hall")
+                .setStreet("7432")
+                .setCity("Houston")
+                .setZip("8589");
     }
 
     @Test

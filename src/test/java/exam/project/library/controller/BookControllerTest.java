@@ -41,12 +41,12 @@ class BookControllerTest {
         authorsId.add("1L");
         authorsId.add("2L");
 
-        Book book = new Book();
-        book.setTitle("Terminator");
-        book.setPrice(35.00);
-        book.setISBN("0-4147-3111-5");
-        book.setPublisherId("1L");
-        book.setAuthorId(authorsId);
+        Book book = new Book()
+                .setTitle("Terminator")
+                .setPrice(35.00)
+                .setISBN("0-4147-3111-5")
+                .setPublisherId("1L")
+                .setAuthorId(authorsId);
 
         this.body = objectMapper.writeValueAsString(book);
     }

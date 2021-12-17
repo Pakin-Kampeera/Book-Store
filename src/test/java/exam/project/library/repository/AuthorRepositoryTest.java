@@ -38,21 +38,21 @@ class AuthorRepositoryTest {
         this.authorRepository = new AuthorRepository(jdbcTemplate);
 
         Set<Book> bookSet = new HashSet<>();
-        book = new Book();
-        book.setBookId(1L);
-        book.setTitle("Tester");
-        book.setPrice(50.00);
+        book = new Book()
+                .setBookId(1L)
+                .setTitle("Tester")
+                .setPrice(50.00);
         bookSet.add(book);
 
-        author1 = new Author();
-        author1.setAuthorId(1L);
-        author1.setFirstName("Peter");
-        author1.setLastName("Kim");
+        author1 = new Author()
+                .setAuthorId(1L)
+                .setFirstName("Peter")
+                .setLastName("Kim");
 
-        author2 = new Author();
-        author2.setAuthorId(2L);
-        author2.setFirstName("Bob");
-        author2.setLastName("Euro");
+        author2 = new Author()
+                .setAuthorId(2L)
+                .setFirstName("Bob")
+                .setLastName("Euro");
     }
 
     @Test

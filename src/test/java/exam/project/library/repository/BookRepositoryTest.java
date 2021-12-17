@@ -32,15 +32,15 @@ class BookRepositoryTest {
         MockitoAnnotations.openMocks(this);
         this.bookRepository = new BookRepository(jdbcTemplate);
 
-        book1 = new Book();
-        book1.setBookId(1L);
-        book1.setTitle("The matrix");
-        book1.setPrice(25.50);
+        book1 = new Book()
+                .setBookId(1L)
+                .setTitle("The matrix")
+                .setPrice(25.50);
 
-        book2 = new Book();
-        book2.setBookId(2L);
-        book2.setTitle("Apocalypse");
-        book2.setPrice(30.00);
+        book2 = new Book()
+                .setBookId(2L)
+                .setTitle("Apocalypse")
+                .setPrice(30.00);
     }
 
     @Test

@@ -17,23 +17,23 @@ public class PublisherMapper implements ResultSetExtractor<List<Publisher>> {
         while (rs.next()) {
             Long publisherId = rs.getLong("publisher_id");
             if (publisherMap.get(publisherId) == null) {
-                Publisher publisher = new Publisher();
-                publisher.setPublisherId(rs.getLong("publisher_id"));
-                publisher.setName(rs.getString("name"));
-                publisher.setStreet(rs.getString("street"));
-                publisher.setCity(rs.getString("city"));
-                publisher.setZip(rs.getString("zip"));
-                publisher.setBooks(new HashSet<>());
+                Publisher publisher = new Publisher()
+                        .setPublisherId(rs.getLong("publisher_id"))
+                        .setName(rs.getString("name"))
+                        .setStreet(rs.getString("street"))
+                        .setCity(rs.getString("city"))
+                        .setZip(rs.getString("zip"))
+                        .setBooks(new HashSet<>());
                 publisherMap.put(publisherId, publisher);
             }
             if (rs.getLong("book_id") != 0) {
                 Publisher publisher = publisherMap.get(publisherId);
                 Set<Book> books = publisher.getBooks();
-                Book book = new Book();
-                book.setBookId(rs.getLong("book_id"));
-                book.setTitle(rs.getString("title"));
-                book.setPrice(rs.getDouble("price"));
-                book.setISBN(rs.getString("isbn"));
+                Book book = new Book()
+                        .setBookId(rs.getLong("book_id"))
+                        .setTitle(rs.getString("title"))
+                        .setPrice(rs.getDouble("price"))
+                        .setISBN(rs.getString("isbn"));
                 books.add(book);
                 publisher.setBooks(books);
             }
