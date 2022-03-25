@@ -9,7 +9,7 @@ public interface AuthorService {
 
     List<Author> getAuthorById(Long authorId);
 
-    int saveNewAuthor(Author author);
+    void saveNewAuthor(Author author);
 
     void saveWriteBook(Long authorId, Long bookId);
 

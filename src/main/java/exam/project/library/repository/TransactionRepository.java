@@ -22,11 +22,11 @@ public class TransactionRepository {
     public List<Transaction> getAllTransaction() {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
-                .add("*")
-                .add("FROM")
-                .add("((Transactions INNER JOIN Members ON Transactions.member_id = Members.member_id)")
-                .add("INNER JOIN Books ON Transactions.book_id = Books.book_id)")
-                .add("ORDER BY date ASC");
+           .add("*")
+           .add("FROM")
+           .add("((Transactions INNER JOIN Members ON Transactions.member_id = Members.member_id)")
+           .add("INNER JOIN Books ON Transactions.book_id = Books.book_id)")
+           .add("ORDER BY date ASC");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new TransactionMapper());
@@ -35,11 +35,11 @@ public class TransactionRepository {
     public List<Transaction> getTransactionById(Long transactionId) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
-                .add("*")
-                .add("FROM")
-                .add("((Transactions INNER JOIN Members ON Transactions.member_id = Members.member_id)")
-                .add("INNER JOIN Books ON Transactions.book_id = Books.book_id)")
-                .add("WHERE Transactions.transaction_id = ?");
+           .add("*")
+           .add("FROM")
+           .add("((Transactions INNER JOIN Members ON Transactions.member_id = Members.member_id)")
+           .add("INNER JOIN Books ON Transactions.book_id = Books.book_id)")
+           .add("WHERE Transactions.transaction_id = ?");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new TransactionMapper()
@@ -49,8 +49,8 @@ public class TransactionRepository {
     public void saveNewTransaction(Transaction transaction) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
-                .add("Transactions (member_id, book_id, quantity, date)")
-                .add("VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
+           .add("Transactions (member_id, book_id, quantity, date)")
+           .add("VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
                 , transaction.getMemberId()

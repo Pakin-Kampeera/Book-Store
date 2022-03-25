@@ -4,6 +4,7 @@
 
 - Spring boot
 - PostgreSQL
+- Redis
 
 ## API doc
 

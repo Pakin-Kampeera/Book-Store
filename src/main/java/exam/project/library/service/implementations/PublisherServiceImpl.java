@@ -33,8 +33,8 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     @CacheEvict(value = "publishers", allEntries = true)
-    public int saveNewPublisher(Publisher publisher) {
-        return publisherRepository.saveNewPublisher(publisher);
+    public void saveNewPublisher(Publisher publisher) {
+        publisherRepository.saveNewPublisher(publisher);
     }
 
     @Override

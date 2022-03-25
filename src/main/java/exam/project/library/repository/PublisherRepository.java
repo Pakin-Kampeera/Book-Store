@@ -22,10 +22,10 @@ public class PublisherRepository {
     public List<Publisher> getAllPublisher() {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
-                .add("Publishers.*, Books.*")
-                .add("FROM")
-                .add("Publishers")
-                .add("LEFT JOIN Books ON Publishers.publisher_id = Books.publisher_id");
+           .add("Publishers.*, Books.*")
+           .add("FROM")
+           .add("Publishers")
+           .add("LEFT JOIN Books ON Publishers.publisher_id = Books.publisher_id");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new PublisherMapper());
@@ -34,11 +34,11 @@ public class PublisherRepository {
     public List<Publisher> getPublisherById(Long publisherId) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
-                .add("Publishers.*, Books.*")
-                .add("FROM")
-                .add("Publishers")
-                .add("LEFT JOIN Books ON Publishers.publisher_id = Books.publisher_id")
-                .add("WHERE Publishers.publisher_id = ?");
+           .add("Publishers.*, Books.*")
+           .add("FROM")
+           .add("Publishers")
+           .add("LEFT JOIN Books ON Publishers.publisher_id = Books.publisher_id")
+           .add("WHERE Publishers.publisher_id = ?");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new PublisherMapper()
@@ -48,8 +48,8 @@ public class PublisherRepository {
     public int saveNewPublisher(Publisher publisher) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
-                .add("Publishers (name, street, city, zip)")
-                .add("VALUES (?, ?, ?, ?)");
+           .add("Publishers (name, street, city, zip)")
+           .add("VALUES (?, ?, ?, ?)");
         log.info("sql = {}", sql);
         return jdbcTemplate.update(sql.toString()
                 , publisher.getName()
@@ -61,9 +61,9 @@ public class PublisherRepository {
     public void updatePublisher(Long publisherId, Publisher publisher) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("UPDATE")
-                .add("Publishers")
-                .add("SET name = ?, street = ?, city = ?, zip = ?")
-                .add("WHERE publisher_id = ?");
+           .add("Publishers")
+           .add("SET name = ?, street = ?, city = ?, zip = ?")
+           .add("WHERE publisher_id = ?");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
                 , publisher.getName()
@@ -76,8 +76,8 @@ public class PublisherRepository {
     public void deletePublisher(Long publisherId) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("DELETE FROM")
-                .add("Books")
-                .add("WHERE Books.publisher_id = ?");
+           .add("Books")
+           .add("WHERE Books.publisher_id = ?");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
                 , publisherId);

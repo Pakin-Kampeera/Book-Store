@@ -37,8 +37,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @CacheEvict(value = "members", allEntries = true)
-    public int saveNewMember(Member member) {
-        return memberRepository.saveNewMember(member);
+    public void saveNewMember(Member member) {
+        memberRepository.saveNewMember(member);
     }
 
     @Override

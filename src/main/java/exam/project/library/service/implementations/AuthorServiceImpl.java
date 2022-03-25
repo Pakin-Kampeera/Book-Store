@@ -32,8 +32,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @CacheEvict(value = "authors", allEntries = true)
-    public int saveNewAuthor(Author author) {
-        return authorRepository.saveNewAuthor(author);
+    public void saveNewAuthor(Author author) {
+        authorRepository.saveNewAuthor(author);
     }
 
     @Override

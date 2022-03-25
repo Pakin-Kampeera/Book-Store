@@ -22,10 +22,10 @@ public class AuthorRepository {
     public List<Author> getAllAuthor() {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
-                .add("Books.*, Authors.*")
-                .add("FROM")
-                .add("((Authors LEFT JOIN Write ON Authors.author_id = Write.author_id)")
-                .add("LEFT JOIN Books ON Books.book_id = Write.book_id)");
+           .add("Books.*, Authors.*")
+           .add("FROM")
+           .add("((Authors LEFT JOIN Write ON Authors.author_id = Write.author_id)")
+           .add("LEFT JOIN Books ON Books.book_id = Write.book_id)");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new AuthorMapper());
@@ -34,11 +34,11 @@ public class AuthorRepository {
     public List<Author> getAuthorById(Long authorId) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("SELECT")
-                .add("Books.*, Authors.*")
-                .add("FROM")
-                .add("((Authors LEFT JOIN Write ON Authors.author_id = Write.author_id)")
-                .add("LEFT JOIN Books ON Books.book_id = Write.book_id)")
-                .add("WHERE Authors.author_id = ?");
+           .add("Books.*, Authors.*")
+           .add("FROM")
+           .add("((Authors LEFT JOIN Write ON Authors.author_id = Write.author_id)")
+           .add("LEFT JOIN Books ON Books.book_id = Write.book_id)")
+           .add("WHERE Authors.author_id = ?");
         log.info("sql = {}", sql);
         return jdbcTemplate.query(sql.toString()
                 , new AuthorMapper(), authorId);
@@ -47,8 +47,8 @@ public class AuthorRepository {
     public int saveNewAuthor(Author author) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
-                .add("Authors (firstname, lastname)")
-                .add("VALUES (?, ?)");
+           .add("Authors (firstname, lastname)")
+           .add("VALUES (?, ?)");
         log.info("sql = {}", sql);
         return jdbcTemplate.update(sql.toString()
                 , author.getFirstName()
@@ -58,8 +58,8 @@ public class AuthorRepository {
     public void saveWriteBook(Long authorId, Long bookId) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
-                .add("WRITE (author_id, book_id)")
-                .add("VALUES (?, ?)");
+           .add("WRITE (author_id, book_id)")
+           .add("VALUES (?, ?)");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
                 , authorId
@@ -69,9 +69,9 @@ public class AuthorRepository {
     public void updateAuthor(Long authorId, Author author) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("UPDATE")
-                .add("Authors")
-                .add("SET firstname = ?, lastname = ?")
-                .add("WHERE author_id = ?");
+           .add("Authors")
+           .add("SET firstname = ?, lastname = ?")
+           .add("WHERE author_id = ?");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
                 , author.getFirstName()
@@ -82,8 +82,8 @@ public class AuthorRepository {
     public void deleteAuthor(Long authorId) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("DELETE FROM")
-                .add("Authors")
-                .add("WHERE author_id = ?");
+           .add("Authors")
+           .add("WHERE author_id = ?");
         log.info("sql = {}", sql);
         jdbcTemplate.update(sql.toString()
                 , authorId);

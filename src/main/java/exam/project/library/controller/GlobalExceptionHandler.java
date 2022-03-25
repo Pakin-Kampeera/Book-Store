@@ -38,10 +38,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatus status, WebRequest request) {
         List<String> validationErrors = exception.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> error.getField() + FIELD_ERROR_SEPARATOR + error.getDefaultMessage())
-                .collect(Collectors.toList());
+                                                 .getFieldErrors()
+                                                 .stream()
+                                                 .map(error -> error.getField() + FIELD_ERROR_SEPARATOR + error.getDefaultMessage())
+                                                 .collect(Collectors.toList());
         return getExceptionResponseEntity(exception, HttpStatus.BAD_REQUEST, request, validationErrors);
     }
 
@@ -57,17 +57,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstraintViolation(
             ConstraintViolationException exception, WebRequest request) {
-        final List<String> validationErrors = exception.getConstraintViolations().stream().
-                map(violation ->
-                        violation.getPropertyPath() + FIELD_ERROR_SEPARATOR + violation.getMessage())
-                .collect(Collectors.toList());
+        final List<String> validationErrors = exception.getConstraintViolations()
+                                                       .stream().
+                                                       map(violation ->
+                                                               violation.getPropertyPath() + FIELD_ERROR_SEPARATOR + violation.getMessage())
+                                                       .collect(Collectors.toList());
         return getExceptionResponseEntity(exception, HttpStatus.BAD_REQUEST, request, validationErrors);
     }
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAllExceptions(Exception exception, WebRequest request) {
         ResponseStatus responseStatus =
-                exception.getClass().getAnnotation(ResponseStatus.class);
+                exception.getClass()
+                         .getAnnotation(ResponseStatus.class);
         final HttpStatus status =
                 responseStatus != null ? responseStatus.value() : HttpStatus.INTERNAL_SERVER_ERROR;
         final String localizedMessage = exception.getLocalizedMessage();
@@ -84,7 +86,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put(TIMESTAMP, Instant.now());
         body.put(STATUS, status.value());
         body.put(ERRORS, errors);
-        body.put(TYPE, exception.getClass().getSimpleName());
+        body.put(TYPE, exception.getClass()
+                                .getSimpleName());
         body.put(PATH, path);
         body.put(MESSAGE, getMessageForStatus(status));
         return new ResponseEntity<>(body, status);

@@ -10,7 +10,7 @@ public interface MemberService {
 
     List<Member> getMemberById(Long memberId);
 
-    int saveNewMember(Member member);
+    void saveNewMember(Member member);
 
     void buyBook(Transaction transaction);
 

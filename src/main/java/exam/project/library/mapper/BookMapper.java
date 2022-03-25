@@ -32,7 +32,7 @@ public class BookMapper implements ResultSetExtractor<List<Book>> {
                         .setZip(rs.getString("zip"));
 
                 book.setPublisher(publisher)
-                        .setAuthors(new HashSet<>());
+                    .setAuthors(new HashSet<>());
                 bookMap.put(bookId, book);
             }
 
