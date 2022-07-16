@@ -2,40 +2,39 @@ package exam.project.library.controller;
 
 import exam.project.library.model.Book;
 import exam.project.library.service.BookService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
-@RequestMapping("api/v1/book")
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/book")
 public class BookController {
     private final BookService bookService;
 
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
-
     @GetMapping
-    public ResponseEntity<Book> getAllBooks() {
-        return new ResponseEntity(bookService.getAllBook(), HttpStatus.OK);
+    public ResponseEntity<List<Book>> getAllBooks() {
+        return new ResponseEntity<>(bookService.getAllBook(), HttpStatus.OK);
     }
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<Book> getBookById(@PathVariable("bookId") Long bookId) {
-        return new ResponseEntity(bookService.getBookById(bookId), HttpStatus.OK);
+    public ResponseEntity<List<Book>> getBookById(@PathVariable("bookId") Long bookId) {
+        return new ResponseEntity<>(bookService.getBookById(bookId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity addBook(@Valid @RequestBody Book book) {
+    public ResponseEntity<HttpHeaders> addBook(@Valid @RequestBody Book book) {
         bookService.saveNewBook(book);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "api/v1/book/");
 
-        return new ResponseEntity(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @PutMapping("/{bookId}")

@@ -3,10 +3,10 @@ package exam.project.library.repository;
 import exam.project.library.model.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -16,21 +16,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class BookRepositoryTest {
 
+    @InjectMocks
+    private BookRepository bookRepository;
+
     @Mock
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    BookRepository bookRepository;
-
-    Book book1, book2;
+    private Book book1, book2;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        this.bookRepository = new BookRepository(jdbcTemplate);
-
         book1 = new Book()
                 .setBookId(1L)
                 .setTitle("The matrix")
@@ -70,21 +68,27 @@ class BookRepositoryTest {
     @Test
     void saveNewBook() {
         when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
+
         bookRepository.updateBook(1L, book1);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
     }
 
     @Test
     void updateBook() {
         when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
+
         bookRepository.updateBook(1L, book1);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
     }
 
     @Test
     void deleteBook() {
         when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+
         bookRepository.deleteBook(1L);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

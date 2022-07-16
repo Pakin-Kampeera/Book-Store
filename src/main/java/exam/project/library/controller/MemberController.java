@@ -3,40 +3,39 @@ package exam.project.library.controller;
 import exam.project.library.model.Member;
 import exam.project.library.model.Transaction;
 import exam.project.library.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
-@RequestMapping("api/v1/member")
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/member")
 public class MemberController {
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
     @GetMapping
-    public ResponseEntity<Member> getAllMembers() {
-        return new ResponseEntity(memberService.getAllMember(), HttpStatus.OK);
+    public ResponseEntity<List<Member>> getAllMembers() {
+        return new ResponseEntity<>(memberService.getAllMember(), HttpStatus.OK);
     }
 
     @GetMapping("/{memberId}")
-    public ResponseEntity getMemberById(@PathVariable("memberId") Long memberId) {
-        return new ResponseEntity(memberService.getMemberById(memberId), HttpStatus.OK);
+    public ResponseEntity<List<Member>> getMemberById(@PathVariable("memberId") Long memberId) {
+        return new ResponseEntity<>(memberService.getMemberById(memberId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity addMember(@Valid @RequestBody Member member) {
+    public ResponseEntity<HttpHeaders> addMember(@Valid @RequestBody Member member) {
         memberService.saveNewMember(member);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "api/v1/member/");
 
-        return new ResponseEntity(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @PostMapping("/buy")
@@ -56,6 +55,4 @@ public class MemberController {
     public void deleteMember(@PathVariable("memberId") Long memberId) {
         memberService.deleteMember(memberId);
     }
-
-
 }

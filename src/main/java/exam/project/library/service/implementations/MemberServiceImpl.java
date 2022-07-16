@@ -5,6 +5,7 @@ import exam.project.library.model.Transaction;
 import exam.project.library.repository.MemberRepository;
 import exam.project.library.repository.TransactionRepository;
 import exam.project.library.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -13,15 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final TransactionRepository transactionRepository;
-
-    public MemberServiceImpl(MemberRepository memberRepository, TransactionRepository transactionRepository) {
-        this.memberRepository = memberRepository;
-        this.transactionRepository = transactionRepository;
-    }
 
     @Override
     @Cacheable(value = "members")

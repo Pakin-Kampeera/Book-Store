@@ -6,37 +6,38 @@ import exam.project.library.model.Author;
 import exam.project.library.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(AuthorController.class)
+@ExtendWith(MockitoExtension.class)
 class AuthorControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+    @InjectMocks
+    private AuthorController authorController;
 
-    @Autowired
-    ObjectMapper objectMapper;
+    @Mock
+    private AuthorService authorService;
 
-    @MockBean
-    AuthorService authorService;
-
-    String body;
+    private MockMvc mockMvc;
+    private String body;
 
     @BeforeEach
     void setUp() throws JsonProcessingException {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(authorController).build();
+
         Author author = new Author()
                 .setFirstName("John")
                 .setLastName("Kate");
+
+        ObjectMapper objectMapper = new ObjectMapper();
         this.body = objectMapper.writeValueAsString(author);
     }
 

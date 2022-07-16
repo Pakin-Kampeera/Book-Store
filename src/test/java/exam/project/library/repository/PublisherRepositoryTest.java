@@ -3,10 +3,10 @@ package exam.project.library.repository;
 import exam.project.library.model.Publisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -16,21 +16,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class PublisherRepositoryTest {
 
+    @InjectMocks
+    private PublisherRepository publisherRepository;
+
     @Mock
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    PublisherRepository publisherRepository;
-
-    Publisher publisher1, publisher2;
+    private Publisher publisher1, publisher2;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        this.publisherRepository = new PublisherRepository(jdbcTemplate);
-
         publisher1 = new Publisher()
                 .setPublisherId(1L)
                 .setName("London House")
@@ -74,21 +72,27 @@ class PublisherRepositoryTest {
     @Test
     void saveNewPublisher() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+
         publisherRepository.saveNewPublisher(publisher1);
+
         assertEquals(1, publisherRepository.saveNewPublisher(publisher1));
     }
 
     @Test
     void updatePublisher() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+
         publisherRepository.updatePublisher(1L, publisher1);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deletePublisher() {
         when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+
         publisherRepository.deletePublisher(1L);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

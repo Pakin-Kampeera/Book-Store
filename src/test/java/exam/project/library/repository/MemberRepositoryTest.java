@@ -3,10 +3,10 @@ package exam.project.library.repository;
 import exam.project.library.model.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -16,21 +16,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class MemberRepositoryTest {
 
+    @InjectMocks
+    private MemberRepository memberRepository;
+
     @Mock
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    MemberRepository memberRepository;
-
-    Member member1, member2;
+    private Member member1, member2;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        this.memberRepository = new MemberRepository(jdbcTemplate);
-
         member1 = new Member()
                 .setMemberId(1L)
                 .setFirstName("Steve")
@@ -72,21 +70,27 @@ class MemberRepositoryTest {
     @Test
     void saveNewMember() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+
         memberRepository.saveNewMember(member1);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     void updateMember() {
         when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+
         memberRepository.updateMember(1L, member1);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deleteMember() {
         when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+
         memberRepository.deleteMember(1L);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

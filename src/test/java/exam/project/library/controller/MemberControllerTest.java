@@ -6,38 +6,39 @@ import exam.project.library.model.Member;
 import exam.project.library.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(MemberController.class)
+@ExtendWith(MockitoExtension.class)
 class MemberControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+    @InjectMocks
+    private MemberController memberController;
 
-    @Autowired
-    ObjectMapper objectMapper;
+    @Mock
+    private MemberService memberService;
 
-    @MockBean
-    MemberService memberService;
-
-    String body;
+    private MockMvc mockMvc;
+    private String body;
 
     @BeforeEach
     void setUp() throws JsonProcessingException {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(memberController).build();
+
         Member member = new Member()
                 .setFirstName("Anna")
                 .setLastName("Sweet")
                 .setTelephone("025478964");
+
+        ObjectMapper objectMapper = new ObjectMapper();
         this.body = objectMapper.writeValueAsString(member);
     }
 

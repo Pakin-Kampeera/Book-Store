@@ -3,40 +3,39 @@ package exam.project.library.controller;
 import exam.project.library.model.Author;
 import exam.project.library.model.Write;
 import exam.project.library.service.AuthorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
-@RequestMapping("/api/v1/author")
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1/author")
 public class AuthorController {
     private final AuthorService authorService;
 
-    public AuthorController(AuthorService authorService) {
-        this.authorService = authorService;
-    }
-
     @GetMapping
-    public ResponseEntity<Author> getAllAuthors() {
-        return new ResponseEntity(authorService.getAllAuthor(), HttpStatus.OK);
+    public ResponseEntity<List<Author>> getAllAuthors() {
+        return new ResponseEntity<>(authorService.getAllAuthor(), HttpStatus.OK);
     }
 
     @GetMapping("/{authorId}")
-    public ResponseEntity<Author> getAuthorById(@PathVariable("authorId") Long authorId) {
-        return new ResponseEntity(authorService.getAuthorById(authorId), HttpStatus.OK);
+    public ResponseEntity<List<Author>> getAuthorById(@PathVariable("authorId") Long authorId) {
+        return new ResponseEntity<>(authorService.getAuthorById(authorId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity addAuthor(@Valid @RequestBody Author author) {
+    public ResponseEntity<HttpHeaders> addAuthor(@Valid @RequestBody Author author) {
         authorService.saveNewAuthor(author);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "api/v1/author/");
 
-        return new ResponseEntity(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @PostMapping("/write")

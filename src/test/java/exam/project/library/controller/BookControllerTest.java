@@ -6,13 +6,13 @@ import exam.project.library.model.Book;
 import exam.project.library.service.BookService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,23 +20,22 @@ import java.util.Set;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(BookController.class)
+@ExtendWith(MockitoExtension.class)
 class BookControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+    @InjectMocks
+    private BookController bookController;
 
-    @Autowired
-    ObjectMapper objectMapper;
+    @Mock
+    private BookService bookService;
 
-    @MockBean
-    BookService bookService;
-
-    String body;
+    private MockMvc mockMvc;
+    private String body;
 
     @BeforeEach
     void setUp() throws JsonProcessingException {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(bookController).build();
+
         Set<String> authorsId = new HashSet<>();
         authorsId.add("1L");
         authorsId.add("2L");
@@ -48,6 +47,7 @@ class BookControllerTest {
                 .setPublisherId("1L")
                 .setAuthorId(authorsId);
 
+        ObjectMapper objectMapper = new ObjectMapper();
         this.body = objectMapper.writeValueAsString(book);
     }
 

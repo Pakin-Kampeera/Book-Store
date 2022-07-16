@@ -4,10 +4,10 @@ import exam.project.library.model.Author;
 import exam.project.library.model.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -17,25 +17,24 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class AuthorRepositoryTest {
 
+    @InjectMocks
+    private AuthorRepository authorRepository;
+
     @Mock
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    AuthorRepository authorRepository;
+    private Author author1, author2;
 
-    Author author1, author2;
-
-    Book book;
+    private Book book;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        this.authorRepository = new AuthorRepository(jdbcTemplate);
-
         Set<Book> bookSet = new HashSet<>();
         book = new Book()
                 .setBookId(1L)
@@ -60,7 +59,7 @@ class AuthorRepositoryTest {
         authorSet.add(author1);
         authorSet.add(author2);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).thenReturn(authorSet);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).willReturn(authorSet);
 
         List<Author> authors = authorRepository.getAllAuthor();
         assertEquals(2, authors.size());
@@ -72,7 +71,7 @@ class AuthorRepositoryTest {
         List<Author> authorSet = new ArrayList<>();
         authorSet.add(author1);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(authorSet);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).willReturn(authorSet);
 
         List<Author> authors = authorRepository.getAuthorById(1L);
         assertEquals(1, authors.size());
@@ -81,29 +80,37 @@ class AuthorRepositoryTest {
 
     @Test
     void saveNewAuthor() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
+        given(jdbcTemplate.update(anyString(), anyString(), anyString())).willReturn(1);
+
         assertEquals(1, authorRepository.saveNewAuthor(author1));
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
     }
 
     @Test
     void saveWriteBook() {
-        when(jdbcTemplate.update(anyString(), anyLong(), anyLong())).thenReturn(1);
+        given(jdbcTemplate.update(anyString(), anyLong(), anyLong())).willReturn(1);
+
         authorRepository.saveWriteBook(1L, 1L);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong());
     }
 
     @Test
     void updateAuthor() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        given(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).willReturn(1);
+
         authorRepository.updateAuthor(1L, author1);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deleteAuthor() {
-        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        given(jdbcTemplate.update(anyString(), anyLong())).willReturn(1);
+
         authorRepository.deleteAuthor(1L);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 

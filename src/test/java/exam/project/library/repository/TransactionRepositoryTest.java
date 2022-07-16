@@ -5,10 +5,10 @@ import exam.project.library.model.Member;
 import exam.project.library.model.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -19,21 +19,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class TransactionRepositoryTest {
 
+    @InjectMocks
+    private TransactionRepository transactionRepository;
+
     @Mock
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    TransactionRepository transactionRepository;
-
-    Transaction transaction;
+    private Transaction transaction;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        this.transactionRepository = new TransactionRepository(jdbcTemplate);
-
         Member member = new Member()
                 .setMemberId(1L)
                 .setFirstName("Steve")
@@ -85,7 +83,9 @@ class TransactionRepositoryTest {
     @Test
     void saveNewTransaction() {
         when(jdbcTemplate.update(anyString(), anyInt(), anyInt(), anyInt())).thenReturn(1);
+
         transactionRepository.saveNewTransaction(transaction);
+
         verify(jdbcTemplate, times(1)).update(anyString(), anyInt(), anyInt(), anyInt());
     }
 }
