@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,7 +45,7 @@ class TransactionRepositoryTest {
                 .setPrice(25.50)
                 .setISBN("0-7696-1930-4");
 
-        transaction = new Transaction()
+        this.transaction = new Transaction()
                 .setMemberId(1)
                 .setBookId(1)
                 .setTransactionId(1L)
@@ -57,35 +58,44 @@ class TransactionRepositoryTest {
 
     @Test
     void getAllTransaction() {
+        // given
         List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(transaction);
         transactionList.add(transaction);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).willReturn(transactionList);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).thenReturn(transactionList);
-
+        // when
         List<Transaction> transactions = transactionRepository.getAllTransaction();
+
+        // then
         assertEquals(2, transactions.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class));
     }
 
     @Test
     void getTransactionById() {
+        // given
         List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(transaction);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).willReturn(transactionList);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(transactionList);
-
+        // when
         List<Transaction> transactions = transactionRepository.getTransactionById(1L);
+
+        // then
         assertEquals(1, transactions.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
     void saveNewTransaction() {
-        when(jdbcTemplate.update(anyString(), anyInt(), anyInt(), anyInt())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyInt(), anyInt(), anyInt())).willReturn(1);
 
+        // when
         transactionRepository.saveNewTransaction(transaction);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyInt(), anyInt(), anyInt());
     }
 }

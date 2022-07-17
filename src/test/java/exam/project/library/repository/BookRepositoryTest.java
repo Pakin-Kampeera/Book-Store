@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,12 +30,12 @@ class BookRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        book1 = new Book()
+        this.book1 = new Book()
                 .setBookId(1L)
                 .setTitle("The matrix")
                 .setPrice(25.50);
 
-        book2 = new Book()
+        this.book2 = new Book()
                 .setBookId(2L)
                 .setTitle("Apocalypse")
                 .setPrice(30.00);
@@ -42,53 +43,68 @@ class BookRepositoryTest {
 
     @Test
     void getAllBook() {
+        // given
         List<Book> bookSet = new ArrayList<>();
         bookSet.add(book1);
         bookSet.add(book2);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).willReturn(bookSet);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).thenReturn(bookSet);
-
+        // when
         List<Book> books = bookRepository.getAllBook();
+
+        // then
         assertEquals(2, books.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class));
     }
 
     @Test
     void getBookById() {
+        // given
         List<Book> bookSet = new ArrayList<>();
         bookSet.add(book1);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).willReturn(bookSet);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(bookSet);
-
+        // when
         List<Book> books = bookRepository.getBookById(1L);
+
+        // then
         assertEquals(1, books.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
     void saveNewBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).willReturn(1);
 
+        // when
         bookRepository.updateBook(1L, book1);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
     }
 
     @Test
     void updateBook() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).willReturn(1);
 
+        // when
         bookRepository.updateBook(1L, book1);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
     }
 
     @Test
     void deleteBook() {
-        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyLong())).willReturn(1);
 
+        // when
         bookRepository.deleteBook(1L);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

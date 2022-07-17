@@ -53,13 +53,13 @@ public class AuthorRepository {
                 , author.getLastName());
     }
 
-    public void saveWriteBook(Long authorId, Long bookId) {
+    public int saveWriteBook(Long authorId, Long bookId) {
         final StringJoiner sql = new StringJoiner(BLANK_SPACE);
         sql.add("INSERT INTO")
                 .add("WRITE (author_id, book_id)")
                 .add("VALUES (?, ?)");
         log.info("sql = {}", sql);
-        jdbcTemplate.update(sql.toString()
+        return jdbcTemplate.update(sql.toString()
                 , authorId
                 , bookId);
     }

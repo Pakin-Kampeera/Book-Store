@@ -1,91 +1,106 @@
-//package exam.project.library.service;
-//
-//import exam.project.library.model.Book;
-//import exam.project.library.repository.BookRepository;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.runner.RunWith;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//import org.mockito.junit.MockitoJUnitRunner;
-//import org.springframework.jdbc.core.JdbcTemplate;
-//import org.springframework.jdbc.core.ResultSetExtractor;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.Mockito.*;
-//
-//@RunWith(MockitoJUnitRunner.class)
-//class BookServiceTest {
-//
-//    @Mock
-//    JdbcTemplate jdbcTemplate;
-//
-//    BookRepository bookRepository;
-//
-//    Book book1, book2;
-//
-//    @BeforeEach
-//    void setUp() {
-//        MockitoAnnotations.openMocks(this);
-//        this.bookRepository = new BookRepository(jdbcTemplate);
-//
-//        book1 = new Book()
-//                .setBookId(1L)
-//                .setTitle("The matrix")
-//                .setPrice(25.50);
-//
-//        book2 = new Book()
-//                .setBookId(2L)
-//                .setTitle("Apocalypse")
-//                .setPrice(30.00);
-//    }
-//
-//    @Test
-//    void getAllBook() {
-//        List<Book> bookSet = new ArrayList<>();
-//        bookSet.add(book1);
-//        bookSet.add(book2);
-//
-//        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).thenReturn(bookSet);
-//
-//        List<Book> books = bookRepository.getAllBook();
-//        assertEquals(2, books.size());
-//        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class));
-//    }
-//
-//    @Test
-//    void getBookById() {
-//        List<Book> bookSet = new ArrayList<>();
-//        bookSet.add(book1);
-//
-//        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(bookSet);
-//
-//        List<Book> books = bookRepository.getBookById(1L);
-//        assertEquals(1, books.size());
-//        verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
-//    }
-//
+package exam.project.library.service;
+
+import exam.project.library.model.Book;
+import exam.project.library.repository.BookRepository;
+import exam.project.library.service.implementations.BookServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+class BookServiceTest {
+
+    @InjectMocks
+    private BookServiceImpl bookService;
+
+    @Mock
+    private BookRepository bookRepository;
+
+    private Book book1, book2;
+
+    @BeforeEach
+    void setUp() {
+        this.book1 = new Book()
+                .setBookId(1L)
+                .setTitle("The matrix")
+                .setPrice(25.50);
+
+        this.book2 = new Book()
+                .setBookId(2L)
+                .setTitle("Apocalypse")
+                .setPrice(30.00);
+    }
+
+    @Test
+    void getAllBook() {
+        // given
+        List<Book> bookSet = new ArrayList<>();
+        bookSet.add(book1);
+        bookSet.add(book2);
+        given(bookRepository.getAllBook()).willReturn(bookSet);
+
+        // when
+        List<Book> books = bookService.getAllBook();
+
+        // then
+        assertEquals(2, books.size());
+        verify(bookRepository, times(1)).getAllBook();
+    }
+
+    @Test
+    void getBookById() {
+        // given
+        List<Book> bookSet = new ArrayList<>();
+        bookSet.add(book1);
+        given(bookRepository.getBookById(anyLong())).willReturn(bookSet);
+
+        // when
+        List<Book> books = bookService.getBookById(anyLong());
+
+        // then
+        assertEquals(1, books.size());
+        verify(bookRepository, times(1)).getBookById(anyLong());
+    }
+
 //    @Test
 //    void saveNewBook() {
-//        when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
-//        bookRepository.updateBook(1L, book1);
-//        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
+//        // given
+//        given(bookRepository.saveNewBook(any(), anyLong())).willReturn(1L);
+//
+//        // when
+//        bookService.saveNewBook(any());
+//
+//        // then
+//        verify(bookRepository, times(1)).saveNewBook(any(), anyLong());
 //    }
 //
 //    @Test
 //    void updateBook() {
-//        when(jdbcTemplate.update(anyString(), anyString(), anyDouble(), anyLong())).thenReturn(1);
-//        bookRepository.updateBook(1L, book1);
-//        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyDouble(), anyLong());
-//    }
+//        // when
+//        bookService.updateBook(anyLong(), any());
 //
-//    @Test
-//    void deleteBook() {
-//        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
-//        bookRepository.deleteBook(1L);
-//        verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
+//        // then
+//        verify(bookRepository, times(1)).updateBook(anyLong(), any());
 //    }
-//}
+
+    @Test
+    void deleteBook() {
+        // when
+        bookService.deleteBook(anyLong());
+
+        // then
+        verify(bookRepository, times(1)).deleteBook(anyLong());
+    }
+}

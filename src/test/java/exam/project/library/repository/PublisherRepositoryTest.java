@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,14 +30,14 @@ class PublisherRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        publisher1 = new Publisher()
+        this.publisher1 = new Publisher()
                 .setPublisherId(1L)
                 .setName("London House")
                 .setStreet("1234")
                 .setCity("Manchester")
                 .setZip("2456");
 
-        publisher2 = new Publisher()
+        this.publisher2 = new Publisher()
                 .setPublisherId(1L)
                 .setName("City Hall")
                 .setStreet("7432")
@@ -46,53 +47,68 @@ class PublisherRepositoryTest {
 
     @Test
     void getAllPublisher() {
+        // given
         List<Publisher> publisherSet = new ArrayList<>();
         publisherSet.add(publisher1);
         publisherSet.add(publisher2);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).willReturn(publisherSet);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).thenReturn(publisherSet);
-
+        // when
         List<Publisher> publishers = publisherRepository.getAllPublisher();
+
+        // then
         assertEquals(2, publishers.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class));
     }
 
     @Test
     void getPublisherById() {
+        // given
         List<Publisher> publisherSet = new ArrayList<>();
         publisherSet.add(publisher1);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).willReturn(publisherSet);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(publisherSet);
-
+        // when
         List<Publisher> publishers = publisherRepository.getPublisherById(1L);
+
+        // then
         assertEquals(1, publishers.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
     void saveNewPublisher() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString())).willReturn(1);
 
+        // when
         publisherRepository.saveNewPublisher(publisher1);
 
+        // then
         assertEquals(1, publisherRepository.saveNewPublisher(publisher1));
     }
 
     @Test
     void updatePublisher() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyString(), anyLong())).willReturn(1);
 
+        // when
         publisherRepository.updatePublisher(1L, publisher1);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deletePublisher() {
-        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyLong())).willReturn(1);
 
+        // when
         publisherRepository.deletePublisher(1L);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }

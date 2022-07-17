@@ -1,7 +1,6 @@
 package exam.project.library.service;
 
 import exam.project.library.model.Author;
-import exam.project.library.model.Book;
 import exam.project.library.repository.AuthorRepository;
 import exam.project.library.service.implementations.AuthorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,12 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
@@ -31,23 +27,14 @@ class AuthorServiceTest {
 
     private Author author1, author2;
 
-    private Book book;
-
     @BeforeEach
     void setUp() {
-        Set<Book> bookSet = new HashSet<>();
-        book = new Book()
-                .setBookId(1L)
-                .setTitle("Tester")
-                .setPrice(50.00);
-        bookSet.add(book);
-
-        author1 = new Author()
+        this.author1 = new Author()
                 .setAuthorId(1L)
                 .setFirstName("Peter")
                 .setLastName("Kim");
 
-        author2 = new Author()
+        this.author2 = new Author()
                 .setAuthorId(2L)
                 .setFirstName("Bob")
                 .setLastName("Euro");
@@ -55,62 +42,74 @@ class AuthorServiceTest {
 
     @Test
     void getAllAuthor() {
+        // given
         List<Author> authorSet = new ArrayList<>();
         authorSet.add(author1);
         authorSet.add(author2);
         given(authorRepository.getAllAuthor()).willReturn(authorSet);
 
+        // when
         List<Author> author = authorService.getAllAuthor();
 
+        // then
         assertEquals(2, author.size());
         verify(authorRepository, times(1)).getAllAuthor();
     }
 
     @Test
     void getAuthorById() {
+        // given
         List<Author> authorSet = new ArrayList<>();
         authorSet.add(author1);
         given(authorRepository.getAuthorById(anyLong())).willReturn(authorSet);
 
-        List<Author> author = authorService.getAuthorById(1L);
+        // when
+        List<Author> author = authorService.getAuthorById(anyLong());
 
+        // then
         assertEquals(1, author.size());
         verify(authorRepository, times(1)).getAuthorById(anyLong());
     }
 
-//    @Test
-//    void saveNewAuthor() {
-//        when(jdbcTemplate.update(anyString(), anyString(), anyString())).thenReturn(1);
-//
-//        assertEquals(1, authorRepository.saveNewAuthor(author1));
-//
-//        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString());
-//    }
-//
-//    @Test
-//    void saveWriteBook() {
-//        when(jdbcTemplate.update(anyString(), anyLong(), anyLong())).thenReturn(1);
-//
-//        authorRepository.saveWriteBook(1L, 1L);
-//
-//        verify(jdbcTemplate, times(1)).update(anyString(), anyLong(), anyLong());
-//    }
-//
-//    @Test
-//    void updateAuthor() {
-//        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
-//
-//        authorRepository.updateAuthor(1L, author1);
-//
-//        verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyLong());
-//    }
-//
-//    @Test
-//    void deleteAuthor() {
-//        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
-//
-//        authorRepository.deleteAuthor(1L);
-//
-//        verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
-//    }
+    @Test
+    void saveNewAuthor() {
+        // given
+        given(authorRepository.saveNewAuthor(any())).willReturn(1);
+
+        // when
+        authorService.saveNewAuthor(any());
+
+        // then
+        verify(authorRepository, times(1)).saveNewAuthor(any());
+    }
+
+    @Test
+    void saveWriteBook() {
+        // given
+        given(authorRepository.saveWriteBook(anyLong(), anyLong())).willReturn(1);
+
+        // when
+        authorService.saveWriteBook(anyLong(), anyLong());
+
+        // then
+        verify(authorRepository, times(1)).saveWriteBook(anyLong(), anyLong());
+    }
+
+    @Test
+    void updateAuthor() {
+        // when
+        authorService.updateAuthor(anyLong(), any());
+
+        // then
+        verify(authorRepository, times(1)).updateAuthor(anyLong(), any());
+    }
+
+    @Test
+    void deleteAuthor() {
+        // when
+        authorService.deleteAuthor(anyLong());
+
+        // then
+        verify(authorRepository, times(1)).deleteAuthor(anyLong());
+    }
 }

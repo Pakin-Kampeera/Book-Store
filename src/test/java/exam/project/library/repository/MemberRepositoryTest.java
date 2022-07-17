@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,13 +30,13 @@ class MemberRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        member1 = new Member()
+        this.member1 = new Member()
                 .setMemberId(1L)
                 .setFirstName("Steve")
                 .setLastName("Jobs")
                 .setTelephone("9834757936");
 
-        member2 = new Member()
+        this.member2 = new Member()
                 .setMemberId(2L)
                 .setFirstName("Tim")
                 .setLastName("Cook")
@@ -44,53 +45,68 @@ class MemberRepositoryTest {
 
     @Test
     void getAllMember() {
+        // given
         List<Member> memberSet = new ArrayList<>();
         memberSet.add(member1);
         memberSet.add(member2);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).willReturn(memberSet);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class))).thenReturn(memberSet);
-
+        // when
         List<Member> members = memberRepository.getAllMember();
+
+        // then
         assertEquals(2, members.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class));
     }
 
     @Test
     void getMemberById() {
+        // given
         List<Member> memberSet = new ArrayList<>();
         memberSet.add(member1);
+        given(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).willReturn(memberSet);
 
-        when(jdbcTemplate.query(anyString(), any(ResultSetExtractor.class), anyLong())).thenReturn(memberSet);
-
+        // when
         List<Member> members = memberRepository.getMemberById(1L);
+
+        // then
         assertEquals(1, members.size());
         verify(jdbcTemplate, times(1)).query(anyString(), any(ResultSetExtractor.class), anyLong());
     }
 
     @Test
     void saveNewMember() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString())).willReturn(1);
 
+        // when
         memberRepository.saveNewMember(member1);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
     void updateMember() {
-        when(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyLong())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyString(), anyString(), anyString(), anyLong())).willReturn(1);
 
+        // when
         memberRepository.updateMember(1L, member1);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyString(), anyString(), anyString(), anyLong());
     }
 
     @Test
     void deleteMember() {
-        when(jdbcTemplate.update(anyString(), anyLong())).thenReturn(1);
+        // given
+        given(jdbcTemplate.update(anyString(), anyLong())).willReturn(1);
 
+        // when
         memberRepository.deleteMember(1L);
 
+        // then
         verify(jdbcTemplate, times(1)).update(anyString(), anyLong());
     }
 }
